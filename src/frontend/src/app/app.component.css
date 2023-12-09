@@ -1,0 +1,31 @@
+nav h1,
+nav ul,
+nav ul li {
+  display: block;
+  float: left;
+}
+
+nav h1 {
+  margin-left: 10px;
+  font-size: 32px;
+  margin-top: 8px;
+}
+
+nav ul li {
+  margin-left: 16px;
+  font-size: 20px;
+  background-color: whitesmoke;
+  height: 30px;
+  padding-left: 32px;
+  padding-right: 32px;
+  margin-top: 14px;
+}
+
+nav ul li:hover {
+  border-bottom: solid rgb(117, 117, 117) 3px;
+  cursor: pointer;
+}
+
+nav {
+  height: 50px;
+}
