@@ -1,4 +1,4 @@
-import { Injectable, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AuthSession } from './auth-session';
 import { AuthLoginData } from './auth-login-data';
 import { AuthState } from './auth-state';
@@ -11,7 +11,7 @@ import { tap, catchError, switchMap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService implements OnInit, OnDestroy {
+export class AuthService {
   private authentified: boolean = false;
   private session: AuthSession | null = null;
 
@@ -21,7 +21,7 @@ export class AuthService implements OnInit, OnDestroy {
     let storageVal: string | null = localStorage.getItem('authState');
     let state: AuthState | null = storageVal ? JSON.parse(storageVal!) : null;
 
-    if (state && new Date() <= state!.session?.expires!) {
+    if (state && new Date() <= new Date(state!.session?.expires! as string)) {
       this.authentified = state!.authentified;
       this.session = state!.session;
     } else {
@@ -31,23 +31,14 @@ export class AuthService implements OnInit, OnDestroy {
   }
 
   saveAuthState() {
-    localStorage.setItem(
-      'authState',
-      JSON.stringify(new AuthState(this.authentified, this.session))
-    );
-  }
-
-  ngOnInit(): void {
-    this.fetchAuthState();
-  }
-
-  ngOnDestroy(): void {
-    this.saveAuthState();
-  }
-
-  @HostListener('window:beforeunload', ['$event'])
-  onUnload() {
-    this.saveAuthState();
+    if (this.authentified) {
+      localStorage.setItem(
+        'authState',
+        JSON.stringify(new AuthState(this.authentified, this.session))
+      );
+    } else {
+      localStorage.removeItem('authState');
+    }
   }
 
   /**
@@ -72,10 +63,12 @@ export class AuthService implements OnInit, OnDestroy {
               data.username,
               data.expiration
             );
+            this.saveAuthState();
           },
           error: (err) => {
             this.authentified = false;
             this.session = null;
+            this.saveAuthState();
           },
         }),
         switchMap((data) => {
@@ -97,6 +90,7 @@ export class AuthService implements OnInit, OnDestroy {
   public logout() {
     this.authentified = false;
     this.session = null;
+    this.saveAuthState();
   }
 
   /**

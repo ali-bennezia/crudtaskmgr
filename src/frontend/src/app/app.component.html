@@ -17,5 +17,13 @@
       </li>
     </ng-container>
   </ul>
+  <button
+    class="r-btn"
+    (click)="onClickLogout()"
+    *ngIf="authService.isAuthentified()"
+  >
+    <ng-icon name="bootstrapPower"></ng-icon>
+    Sign Out
+  </button>
 </nav>
 <router-outlet></router-outlet>

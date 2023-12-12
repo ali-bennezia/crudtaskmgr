@@ -1,5 +1,5 @@
 export class AuthSession {
-  constructor(token: String, username: String, expires: Date) {
+  constructor(token: String, username: String, expires: String) {
     this.token = token;
     this.username = username;
     this.expires = expires;
@@ -7,5 +7,5 @@ export class AuthSession {
 
   token: String;
   username: String;
-  expires: Date;
+  expires: String;
 }

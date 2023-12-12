@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
 enum NavAccess {
@@ -18,12 +19,12 @@ class NavLink {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   public navAccess = NavAccess;
 
   title = 'frontend';
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   public navLinks: NavLink[] = [
     { label: 'Index', url: '/index', access: NavAccess.ALL },
@@ -39,4 +40,17 @@ export class AppComponent {
       access: NavAccess.AUTH_ONLY,
     },
   ];
+
+  ngOnInit(): void {
+    this.authService.fetchAuthState();
+  }
+
+  ngOnDestroy(): void {
+    this.authService.saveAuthState();
+  }
+
+  onClickLogout() {
+    this.authService.logout();
+    this.router.navigateByUrl('/index');
+  }
 }
