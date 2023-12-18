@@ -2,11 +2,17 @@ import { Injectable } from '@angular/core';
 import { AuthSession } from './auth-session';
 import { AuthLoginData } from './auth-login-data';
 import { AuthState } from './auth-state';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpEvent,
+  HttpResponse,
+} from '@angular/common/http';
 import backendConfig from './../backend.json';
 
-import { Observable, of } from 'rxjs';
-import { tap, catchError, switchMap } from 'rxjs/operators';
+import { EMPTY, Observable, of } from 'rxjs';
+import { tap, catchError, switchMap, filter } from 'rxjs/operators';
+import { LoginResult } from './login-result';
 
 @Injectable({
   providedIn: 'root',
@@ -48,22 +54,32 @@ export class AuthService {
    * @param password The password to authentify.
    * @returns true if the authentification is successful, false otherwise.
    */
-  public login(username: String, password: String): Observable<boolean> {
+  public login(username: String, password: String): Observable<LoginResult> {
     return this.http
-      .post<AuthLoginData>(`${backendConfig.backendUrl}/api/user/signin`, {
-        username: username,
-        password: password,
-      })
+      .post<AuthLoginData>(
+        `${backendConfig.backendUrl}/api/user/signin`,
+        {
+          username: username,
+          password: password,
+        },
+        { observe: 'events' }
+      )
       .pipe(
+        filter(
+          (data) =>
+            data instanceof HttpResponse || data instanceof HttpErrorResponse
+        ),
         tap({
           next: (data) => {
-            this.authentified = true;
-            this.session = new AuthSession(
-              data.token,
-              data.username,
-              data.expiration
-            );
-            this.saveAuthState();
+            if (data instanceof HttpResponse) {
+              this.authentified = true;
+              this.session = new AuthSession(
+                data.body!.token,
+                data.body!.username,
+                data.body!.expiration
+              );
+              this.saveAuthState();
+            }
           },
           error: (err) => {
             this.authentified = false;
@@ -72,14 +88,14 @@ export class AuthService {
           },
         }),
         switchMap((data) => {
-          if (data instanceof HttpErrorResponse) {
-            return of(false);
+          if (data instanceof HttpResponse) {
+            return of(new LoginResult(true, data.status));
           } else {
-            return of(true);
+            return of(new LoginResult(false, 0));
           }
         }),
         catchError((err) => {
-          return of(false);
+          return of(new LoginResult(false, err.status));
         })
       );
   }

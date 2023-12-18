@@ -1,27 +1,29 @@
-<div class="form-cont">
-  <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-    <h1>Sign In</h1>
+<div class="page-cont">
+  <div class="form-cont">
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+      <h2 id="form-title">Sign In</h2>
 
-    <label for="username">Username</label>
-    <input
-      type="text"
-      id="username"
-      name="username"
-      formControlName="username"
-    />
-    <label for="password">Password</label>
-    <input
-      type="password"
-      id="password"
-      name="password"
-      formControlName="password"
-    />
-    <input
-      type="submit"
-      value="Sign In"
-      [disabled]="signInForm.invalid || loading"
-    />
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        formControlName="username"
+      />
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        formControlName="password"
+      />
+      <input
+        type="submit"
+        value="Sign In"
+        [disabled]="signInForm.invalid || loading"
+      />
 
-    <p id="signin-err"></p>
-  </form>
+      <p id="signin-err" #signinerr></p>
+    </form>
+  </div>
 </div>
