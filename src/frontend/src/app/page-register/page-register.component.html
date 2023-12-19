@@ -1,1 +1,31 @@
-<p>page-register works!</p>
+<div class="page-cont">
+  <div class="page-form-cont">
+    <form class="page-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <h2 id="page-form-title">Register</h2>
+
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        formControlName="username"
+      />
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        formControlName="password"
+      />
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" formControlName="email" />
+      <input
+        type="submit"
+        value="Register"
+        [disabled]="registerForm.invalid || loading"
+      />
+
+      <p id="signin-err" #signinerr></p>
+    </form>
+  </div>
+</div>

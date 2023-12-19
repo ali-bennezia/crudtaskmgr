@@ -5,3 +5,24 @@ body,
   height: 100%;
   margin: 0;
 }
+
+input {
+  border-radius: 8px;
+  border: solid rgb(161, 161, 161) 1px;
+}
+
+input[type="button"] {
+  border: solid rgb(143, 143, 143) 1px;
+}
+
+input:focus {
+  outline: solid;
+  outline-width: 6px;
+  outline-color: rgba(128, 128, 128, 0.151);
+}
+
+input.ng-invalid.ng-touched {
+  outline: solid;
+  outline-width: 6px;
+  outline-color: rgba(255, 164, 164, 0.596);
+}

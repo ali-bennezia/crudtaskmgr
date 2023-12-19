@@ -54,3 +54,51 @@ nav {
 .r-btn ng-icon {
   overflow: visible;
 }
+
+.page-form-cont {
+  margin: 0 auto;
+
+  position: absolute;
+
+  top: 30%;
+  right: 50%;
+
+  -ms-transform: translateY(-50%) translateX(50%);
+  transform: translateY(-50%) translateX(50%);
+
+  width: 100%;
+}
+
+#page-form-title {
+  text-align: center;
+  text-wrap: nowrap;
+  width: 100%;
+  height: 48px;
+  position: relative;
+}
+
+.page-form label {
+  display: block;
+  margin-left: 10px;
+}
+
+.page-form {
+  width: 380px;
+  margin: 0 auto;
+  display: block;
+}
+
+.page-form label {
+  text-align: left;
+}
+
+.page-form label,
+.page-form input {
+  display: block;
+  width: 100%;
+  margin: 12px;
+}
+
+#signin-err {
+  color: red;
+}

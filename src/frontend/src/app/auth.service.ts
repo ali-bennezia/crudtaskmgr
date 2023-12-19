@@ -48,11 +48,21 @@ export class AuthService {
   }
 
   /**
+   * Register using given credentials.
+   *
+   * @param username The username to register with.
+   * @param password The password to register with.
+   * @param email The email to register with.
+   * @returns true if the account was registered with success, false otherwise.
+   */
+  public register(username: String, password: String, email: String) {}
+
+  /**
    * Logs in using given credentials.
    *
-   * @param username The username to authentify.
-   * @param password The password to authentify.
-   * @returns true if the authentification is successful, false otherwise.
+   * @param username The username to authentify with.
+   * @param password The password to authentify with.
+   * @returns An Observable giving the result as a LoginResult object.
    */
   public login(username: String, password: String): Observable<LoginResult> {
     return this.http
