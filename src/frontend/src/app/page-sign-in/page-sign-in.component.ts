@@ -38,10 +38,10 @@ export class PageSignInComponent {
 
   onSubmit(): void {
     this.loading = true;
-    const username: string | undefined = this.signInForm.get('username')?.value;
-    const password: string | undefined = this.signInForm.get('password')?.value;
+    const username: string = this.signInForm.get('username')?.value ?? '';
+    const password: string = this.signInForm.get('password')?.value ?? '';
     this.authService
-      .login(username ?? '', password ?? '')
+      .login(username, password)
       .pipe(
         tap((data) => {
           if (data.success == false) {

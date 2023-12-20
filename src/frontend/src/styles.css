@@ -7,7 +7,7 @@ body,
 }
 
 input {
-  border-radius: 8px;
+  border-radius: 6px;
   border: solid rgb(161, 161, 161) 1px;
 }
 
@@ -25,4 +25,16 @@ input.ng-invalid.ng-touched {
   outline: solid;
   outline-width: 6px;
   outline-color: rgba(255, 164, 164, 0.596);
+}
+
+.error-msg {
+  color: red;
+  background-color: rgba(255, 0, 0, 0.11);
+  border-radius: 4px;
+  outline: solid rgba(255, 0, 0, 0.404) 1px;
+  padding: 2px;
+}
+
+.error-msg:empty {
+  visibility: hidden;
 }

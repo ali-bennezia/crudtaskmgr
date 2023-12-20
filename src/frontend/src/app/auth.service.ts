@@ -13,6 +13,7 @@ import backendConfig from './../backend.json';
 import { EMPTY, Observable, of } from 'rxjs';
 import { tap, catchError, switchMap, filter } from 'rxjs/operators';
 import { LoginResult } from './login-result';
+import { RegisterResult } from './register-result';
 
 @Injectable({
   providedIn: 'root',
@@ -55,7 +56,30 @@ export class AuthService {
    * @param email The email to register with.
    * @returns true if the account was registered with success, false otherwise.
    */
-  public register(username: String, password: String, email: String) {}
+  public register(username: String, password: String, email: String) {
+    return this.http
+      .post<RegisterResult>(
+        `${backendConfig.backendUrl}/api/user/register`,
+        {
+          username: username,
+          password: password,
+          email: email,
+        },
+        { observe: 'response' }
+      )
+      .pipe(
+        switchMap((data) => {
+          if (data.status == 201) {
+            return of(new RegisterResult(true, data.status));
+          } else {
+            return of(new RegisterResult(false, data.status));
+          }
+        }),
+        catchError((err) => {
+          return of(new RegisterResult(false, err.status));
+        })
+      );
+  }
 
   /**
    * Logs in using given credentials.
