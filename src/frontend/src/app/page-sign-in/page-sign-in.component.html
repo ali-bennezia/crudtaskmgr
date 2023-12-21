@@ -23,6 +23,22 @@
         [disabled]="signInForm.invalid || loading"
       />
 
+      <ng-container *ngFor="let i of ['username', 'password']">
+        <div *ngIf="signInForm.touched && signInForm.invalid">
+          <p class="error-msg" *ngIf="signInForm.get(i)?.errors?.['required']">
+            {{ i | titlecase }} is required.
+          </p>
+          <p class="error-msg" *ngIf="signInForm.get(i)?.errors?.['pattern']">
+            {{ i | titlecase }} contains invalid characters.
+          </p>
+          <p class="error-msg" *ngIf="signInForm.get(i)?.errors?.['minlength']">
+            {{ i | titlecase }} is too short.
+          </p>
+          <p class="error-msg" *ngIf="signInForm.get(i)?.errors?.['maxlength']">
+            {{ i | titlecase }} is too long.
+          </p>
+        </div>
+      </ng-container>
       <p class="error-msg" #signinerr></p>
     </form>
   </div>

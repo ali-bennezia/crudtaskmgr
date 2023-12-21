@@ -25,6 +25,41 @@
         [disabled]="registerForm.invalid || loading"
       />
 
+      <ng-container *ngFor="let i of ['username', 'password', 'email']">
+        <div *ngIf="registerForm.touched && registerForm.invalid">
+          <p
+            class="error-msg"
+            *ngIf="registerForm.get(i)?.errors?.['required']"
+          >
+            {{ i | titlecase }} is required.
+          </p>
+          <ng-container *ngIf="i != 'email'">
+            <p
+              class="error-msg"
+              *ngIf="registerForm.get(i)?.errors?.['pattern']"
+            >
+              {{ i | titlecase }} contains invalid characters.
+            </p>
+          </ng-container>
+          <p
+            class="error-msg"
+            *ngIf="registerForm.get(i)?.errors?.['minlength']"
+          >
+            {{ i | titlecase }} is too short.
+          </p>
+          <p
+            class="error-msg"
+            *ngIf="registerForm.get(i)?.errors?.['maxlength']"
+          >
+            {{ i | titlecase }} is too long.
+          </p>
+          <ng-container *ngIf="i == 'email'">
+            <p class="error-msg" *ngIf="registerForm.get(i)?.errors?.['email']">
+              {{ i | titlecase }} is invalid.
+            </p>
+          </ng-container>
+        </div>
+      </ng-container>
       <p class="error-msg" #signinerr></p>
     </form>
   </div>

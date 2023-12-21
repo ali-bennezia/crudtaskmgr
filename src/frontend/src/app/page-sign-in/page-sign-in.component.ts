@@ -28,11 +28,13 @@ export class PageSignInComponent {
       Validators.required,
       Validators.minLength(8),
       Validators.maxLength(26),
+      Validators.pattern('[A-z0-9_]+'),
     ]),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
       Validators.maxLength(28),
+      Validators.pattern('[A-z0-9_]+'),
     ]),
   });
 

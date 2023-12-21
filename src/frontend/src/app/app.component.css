@@ -96,5 +96,6 @@ nav {
 .page-form input {
   display: block;
   width: 100%;
-  margin: 12px;
+  margin-top: 8px;
+  margin-bottom: 4px;
 }
