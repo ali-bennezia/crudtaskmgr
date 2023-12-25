@@ -1,29 +1,35 @@
-<nav>
-  <h1>Task Manager</h1>
-  <ul>
-    <ng-container *ngFor="let data of navLinks">
-      <li
-        *ngIf="
-          data.access == navAccess.ALL ||
-          (data.access == navAccess.AUTH_ONLY &&
-            authService.isAuthentified()) ||
-          (data.access == navAccess.ANON_ONLY && !authService.isAuthentified())
-        "
-        [routerLink]="data.url"
-        routerLinkActive="active"
-        ariaCurrentWhenActive="page"
-      >
-        {{ data.label }}
-      </li>
-    </ng-container>
-  </ul>
-  <button
-    class="r-btn"
-    (click)="onClickLogout()"
-    *ngIf="authService.isAuthentified()"
-  >
-    <ng-icon name="bootstrapPower"></ng-icon>
-    Sign Out
-  </button>
-</nav>
-<router-outlet></router-outlet>
+<div class="page-root-cont">
+  <nav>
+    <h1>Task Manager</h1>
+    <ul>
+      <ng-container *ngFor="let data of navLinks">
+        <li
+          *ngIf="
+            data.access == navAccess.ALL ||
+            (data.access == navAccess.AUTH_ONLY &&
+              authService.isAuthentified()) ||
+            (data.access == navAccess.ANON_ONLY &&
+              !authService.isAuthentified())
+          "
+          [routerLink]="data.url"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+        >
+          {{ data.label }}
+        </li>
+      </ng-container>
+    </ul>
+    <button
+      class="r-btn"
+      (click)="onClickLogout()"
+      *ngIf="authService.isAuthentified()"
+    >
+      <ng-icon
+        name="bootstrapPower"
+        style="position: relative; bottom: 2px"
+      ></ng-icon>
+      Sign Out
+    </button>
+  </nav>
+  <router-outlet></router-outlet>
+</div>

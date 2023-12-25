@@ -1,3 +1,9 @@
+.page-root-cont {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+}
+
 .page-cont,
 body,
 :host {
@@ -28,11 +34,17 @@ input.ng-invalid.ng-touched {
 }
 
 .error-msg {
+  margin-top: 16px;
+  margin-bottom: 0px;
+
   color: red;
   background-color: rgba(255, 0, 0, 0.11);
   border-radius: 4px;
   outline: solid rgba(255, 0, 0, 0.404) 1px;
+
   padding: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .error-msg:empty {

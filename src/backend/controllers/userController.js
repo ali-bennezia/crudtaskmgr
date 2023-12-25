@@ -11,7 +11,6 @@ exports.register = async function (req, res) {
       !("email" in req.body)
     ) {
       res.set("WWW-Authenticate", 'Bearer realm="App"');
-      console.log(req.body);
       return res.status(401).json("Unauthorized");
     }
 
