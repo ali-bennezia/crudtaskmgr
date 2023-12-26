@@ -7,13 +7,14 @@ const schema = new mongoose.Schema(
       required: true,
       ref: "user",
     },
-    title: { type: String, required: true, minlength: 3, maxlength: 28 },
-    content: { type: String, required: true, minlength: 3, maxlength: 60 },
-    description: {
-      type: String,
-      required: false,
-      maxlength: 380,
+    group: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "group",
     },
+    title: { type: String, required: true, minlength: 3, maxlength: 28 },
+    content: { type: String, required: true, minlength: 3, maxlength: 380 },
+    groupIndex: { type: Number, required: true },
   },
   { timestamps: true }
 );
