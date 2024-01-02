@@ -1,66 +1,52 @@
-<div class="page-cont">
-  <div class="page-form-cont">
-    <form class="page-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <h2 id="page-form-title">Register</h2>
+<div class="page-form-cont">
+  <form class="page-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h2 id="page-form-title">Register</h2>
 
-      <label for="username">Username</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        formControlName="username"
-      />
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        formControlName="password"
-      />
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" formControlName="email" />
-      <input
-        type="submit"
-        value="Register"
-        [disabled]="registerForm.invalid || loading"
-      />
+    <label for="username">Username</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      formControlName="username"
+    />
+    <label for="password">Password</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      formControlName="password"
+    />
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" formControlName="email" />
+    <input
+      type="submit"
+      value="Register"
+      [disabled]="registerForm.invalid || loading"
+    />
 
-      <ng-container *ngFor="let i of ['username', 'password', 'email']">
-        <div *ngIf="registerForm.touched && registerForm.invalid">
-          <p
-            class="error-msg"
-            *ngIf="registerForm.get(i)?.errors?.['required']"
-          >
-            {{ i | titlecase }} is required.
+    <ng-container *ngFor="let i of ['username', 'password', 'email']">
+      <div *ngIf="registerForm.touched && registerForm.invalid">
+        <p class="error-msg" *ngIf="registerForm.get(i)?.errors?.['required']">
+          {{ i | titlecase }} is required.
+        </p>
+        <ng-container *ngIf="i != 'email'">
+          <p class="error-msg" *ngIf="registerForm.get(i)?.errors?.['pattern']">
+            {{ i | titlecase }} contains invalid characters.
           </p>
-          <ng-container *ngIf="i != 'email'">
-            <p
-              class="error-msg"
-              *ngIf="registerForm.get(i)?.errors?.['pattern']"
-            >
-              {{ i | titlecase }} contains invalid characters.
-            </p>
-          </ng-container>
-          <p
-            class="error-msg"
-            *ngIf="registerForm.get(i)?.errors?.['minlength']"
-          >
-            {{ i | titlecase }} is too short.
+        </ng-container>
+        <p class="error-msg" *ngIf="registerForm.get(i)?.errors?.['minlength']">
+          {{ i | titlecase }} is too short.
+        </p>
+        <p class="error-msg" *ngIf="registerForm.get(i)?.errors?.['maxlength']">
+          {{ i | titlecase }} is too long.
+        </p>
+        <ng-container *ngIf="i == 'email'">
+          <p class="error-msg" *ngIf="registerForm.get(i)?.errors?.['email']">
+            {{ i | titlecase }} is invalid.
           </p>
-          <p
-            class="error-msg"
-            *ngIf="registerForm.get(i)?.errors?.['maxlength']"
-          >
-            {{ i | titlecase }} is too long.
-          </p>
-          <ng-container *ngIf="i == 'email'">
-            <p class="error-msg" *ngIf="registerForm.get(i)?.errors?.['email']">
-              {{ i | titlecase }} is invalid.
-            </p>
-          </ng-container>
-        </div>
-      </ng-container>
-      <p class="error-msg" #signinerr></p>
-    </form>
-  </div>
+        </ng-container>
+      </div>
+    </ng-container>
+    <p class="error-msg" #signinerr></p>
+  </form>
 </div>

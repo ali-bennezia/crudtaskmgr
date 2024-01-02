@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -11,9 +11,12 @@ import { catchError, tap } from 'rxjs/operators';
   templateUrl: './page-sign-in.component.html',
   styleUrls: ['./page-sign-in.component.css'],
 })
-export class PageSignInComponent {
-  @ViewChild('signinerr')
+export class PageSignInComponent implements OnInit {
+  @ViewChild('signinerr', { static: true })
   errorElement!: ElementRef;
+
+  @ViewChild('signinsuc', { static: true })
+  successElement!: ElementRef;
 
   private setErrorMsg(msg: string) {
     this.errorElement.nativeElement.innerText = msg;
@@ -21,7 +24,21 @@ export class PageSignInComponent {
 
   public loading: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.route.queryParamMap.subscribe((data) => {
+      console.log(data);
+      if (data.has('success') && data.get('success') == 'true') {
+        this.successElement.nativeElement.innerText =
+          'Account was succesfully registered.';
+      }
+    });
+  }
 
   signInForm: FormGroup = new FormGroup({
     username: new FormControl('', [

@@ -1,45 +1,44 @@
-<div class="page-cont">
-  <div class="page-form-cont">
-    <form class="page-form" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-      <h2 id="page-form-title">Sign In</h2>
+<div class="page-form-cont">
+  <form class="page-form" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+    <h2 id="page-form-title">Sign In</h2>
 
-      <label for="username">Username</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        formControlName="username"
-      />
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        formControlName="password"
-      />
-      <input
-        type="submit"
-        value="Sign In"
-        [disabled]="signInForm.invalid || loading"
-      />
+    <label for="username">Username</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      formControlName="username"
+    />
+    <label for="password">Password</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      formControlName="password"
+    />
+    <input
+      type="submit"
+      value="Sign In"
+      [disabled]="signInForm.invalid || loading"
+    />
 
-      <ng-container *ngFor="let i of ['username', 'password']">
-        <div *ngIf="signInForm.touched && signInForm.invalid">
-          <p class="error-msg" *ngIf="signInForm.get(i)?.errors?.['required']">
-            {{ i | titlecase }} is required.
-          </p>
-          <p class="error-msg" *ngIf="signInForm.get(i)?.errors?.['pattern']">
-            {{ i | titlecase }} contains invalid characters.
-          </p>
-          <p class="error-msg" *ngIf="signInForm.get(i)?.errors?.['minlength']">
-            {{ i | titlecase }} is too short.
-          </p>
-          <p class="error-msg" *ngIf="signInForm.get(i)?.errors?.['maxlength']">
-            {{ i | titlecase }} is too long.
-          </p>
-        </div>
-      </ng-container>
-      <p class="error-msg" #signinerr></p>
-    </form>
-  </div>
+    <ng-container *ngFor="let i of ['username', 'password']">
+      <div *ngIf="signInForm.touched && signInForm.invalid">
+        <p class="error-msg" *ngIf="signInForm.get(i)?.errors?.['required']">
+          {{ i | titlecase }} is required.
+        </p>
+        <p class="error-msg" *ngIf="signInForm.get(i)?.errors?.['pattern']">
+          {{ i | titlecase }} contains invalid characters.
+        </p>
+        <p class="error-msg" *ngIf="signInForm.get(i)?.errors?.['minlength']">
+          {{ i | titlecase }} is too short.
+        </p>
+        <p class="error-msg" *ngIf="signInForm.get(i)?.errors?.['maxlength']">
+          {{ i | titlecase }} is too long.
+        </p>
+      </div>
+    </ng-container>
+    <p class="error-msg" #signinerr></p>
+    <p class="success-msg" #signinsuc></p>
+  </form>
 </div>

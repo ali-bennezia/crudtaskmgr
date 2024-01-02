@@ -1,7 +1,6 @@
 .page-root-cont {
   width: 100vw;
   height: 100vh;
-  margin: 0;
 }
 
 .page-cont,
@@ -10,6 +9,11 @@ body,
   width: 100%;
   height: 100%;
   margin: 0;
+  padding: 0;
+
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 input {
@@ -48,5 +52,23 @@ input.ng-invalid.ng-touched {
 }
 
 .error-msg:empty {
+  visibility: hidden;
+}
+
+.success-msg {
+  margin-top: 16px;
+  margin-bottom: 0px;
+
+  color: rgb(35, 211, 0);
+  background-color: rgba(17, 177, 2, 0.11);
+  border-radius: 4px;
+  outline: solid rgba(0, 182, 15, 0.404) 1px;
+
+  padding: 2px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.success-msg:empty {
   visibility: hidden;
 }

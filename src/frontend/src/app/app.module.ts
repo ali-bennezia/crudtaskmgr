@@ -15,6 +15,8 @@ import { PageSignInComponent } from './page-sign-in/page-sign-in.component';
 import { PageRegisterComponent } from './page-register/page-register.component';
 import { PageMyTasksComponent } from './page-my-tasks/page-my-tasks.component';
 import { interceptorProviders } from './interceptors';
+import { TaskGroupComponent } from './task-group/task-group.component';
+import { SiteIconComponent } from './site-icon/site-icon.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { interceptorProviders } from './interceptors';
     PageSignInComponent,
     PageRegisterComponent,
     PageMyTasksComponent,
+    TaskGroupComponent,
+    SiteIconComponent,
   ],
   imports: [
     BrowserModule,
