@@ -3,6 +3,7 @@ const taskModel = require("./taskModel.js");
 
 const schema = new mongoose.Schema({
   title: { type: String, required: true },
+  files: [String],
 });
 
 schema.pre("remove", function (next) {

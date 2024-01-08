@@ -144,10 +144,18 @@ export class AuthService {
   }
 
   /**
-   * Returns the current authentification state.
+   * Returns the current authentication state.
    * @returns Boolean indicating whether the user is currently authentified.
    */
   public isAuthentified(): boolean {
     return this.authentified;
+  }
+
+  /**
+   * Returns the current authentication session.
+   * @returns The current AuthSession or null if there is none.
+   */
+  public getSession(): AuthSession | null {
+    return this.session;
   }
 }

@@ -23,7 +23,15 @@ exports.createTaskGroup = async function (req, res) {
 
 exports.getTaskGroups = async function (req, res) {
   try {
-    const groups = await groupModel.find();
+    const groups = Promise.all(
+      (await groupModel.find()).map(async function (g) {
+        return {
+          title: groups.title,
+          tasks: await taskModel.find({ group: g._id }),
+          files: [],
+        };
+      })
+    );
     return res.status(200).json(groups);
   } catch (err) {
     console.error(err);

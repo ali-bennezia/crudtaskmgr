@@ -72,3 +72,16 @@ input.ng-invalid.ng-touched {
 .success-msg:empty {
   visibility: hidden;
 }
+
+.create-gp {
+  border: none;
+  color: white;
+  background-color: rgb(69, 143, 69);
+  border-radius: 4px;
+  padding: 6px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.create-gp:hover {
+  background-color: rgb(92, 168, 92);
+}

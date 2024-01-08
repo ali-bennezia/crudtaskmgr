@@ -1,0 +1,12 @@
+<div id="task-cont" *ngIf="groups.length > 0; else elseBlock">
+  <app-task-group *ngFor="let g of groups"></app-task-group>
+</div>
+<ng-template #elseBlock>
+  <article>
+    <h1>No Tasks Found</h1>
+    <aside>
+      <button class="create-gp">Create a task group</button>
+    </aside>
+  </article>
+</ng-template>
+<app-lateral-menu></app-lateral-menu>

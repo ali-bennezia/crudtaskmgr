@@ -12,3 +12,17 @@
 
   width: 100vw;
 }
+
+article {
+  padding: 50px;
+}
+
+h1 {
+  margin-top: 60px;
+  color: rgb(59, 59, 59);
+}
+
+h1,
+aside {
+  text-align: center;
+}
