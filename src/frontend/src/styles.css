@@ -85,3 +85,47 @@ input.ng-invalid.ng-touched {
 .create-gp:hover {
   background-color: rgb(92, 168, 92);
 }
+
+.create-gp:disabled {
+  background-color: rgba(69, 143, 69, 0.425);
+  cursor: default;
+}
+
+.delete-gp {
+  border: none;
+  color: white;
+  background-color: rgb(143, 69, 69);
+  border-radius: 4px;
+  padding: 6px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.delete-gp:hover {
+  background-color: rgb(168, 92, 92);
+}
+
+.delete-gp:disabled {
+  background-color: rgba(143, 69, 69, 0.425);
+  cursor: default;
+}
+
+.file-input {
+  border: dashed 2px rgba(0, 0, 0, 0.212);
+  border-radius: 16px;
+  color: grey;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.file-input:hover {
+  cursor: pointer;
+}
+
+.file-input > p {
+  display: block;
+  text-align: center;
+  position: relative;
+  margin: 0 auto;
+  top: 50%;
+  transform: translateY(-50%);
+}

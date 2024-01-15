@@ -5,8 +5,51 @@
   <article>
     <h1>No Tasks Found</h1>
     <aside>
-      <button class="create-gp">Create a task group</button>
+      <button
+        class="create-gp"
+        (click)="taskGroupCreation = true"
+        [disabled]="taskGroupCreation"
+      >
+        Create a task group
+      </button>
     </aside>
   </article>
 </ng-template>
-<app-lateral-menu></app-lateral-menu>
+<app-lateral-menu [show]="taskGroupCreation">
+  <h4 style="text-align: center; top: 10px; position: relative">
+    Create Task Group
+  </h4>
+
+  <form>
+    <label style="display: block; margin-left: 20px">Title</label>
+    <input
+      type="text"
+      name="title"
+      style="
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+      "
+    />
+    <label style="display: block; margin-left: 20px">Files</label>
+    <app-file-drop></app-file-drop>
+    <span style="display: block">
+      <input
+        type="submit"
+        value="Create"
+        class="create-gp"
+        style="margin: 8px"
+        [disabled]="!taskGroupCreation"
+      />
+      <button
+        class="delete-gp"
+        style="margin: 8px"
+        (click)="taskGroupCreation = false"
+        [disabled]="!taskGroupCreation"
+      >
+        Cancel
+      </button>
+    </span>
+  </form>
+</app-lateral-menu>

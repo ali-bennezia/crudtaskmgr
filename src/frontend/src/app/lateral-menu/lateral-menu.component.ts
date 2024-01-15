@@ -1,12 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
+import { trigger, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-lateral-menu',
@@ -14,23 +8,32 @@ import {
   styleUrls: ['./lateral-menu.component.css'],
   animations: [
     trigger('openClose', [
-      transition('* => void', [
+      transition(':enter', [
+        style({
+          transform: 'translateX(100%)',
+        }),
         animate(
-          500,
+          100,
           style({
-            transform: 'translateX(100%)',
+            transform: 'translateX(0%)',
           })
         ),
       ]),
-      transition('void => *', [
+      transition(':leave', [
+        style({
+          transform: 'translateX(0%)',
+        }),
         animate(
-          500,
+          100,
           style({
-            transform: 'translateX(0%)',
+            transform: 'translateX(100%)',
           })
         ),
       ]),
     ]),
   ],
 })
-export class LateralMenuComponent {}
+export class LateralMenuComponent {
+  @Input()
+  show: boolean = false;
+}

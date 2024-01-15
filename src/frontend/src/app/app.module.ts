@@ -19,6 +19,7 @@ import { interceptorProviders } from './interceptors';
 import { TaskGroupComponent } from './tasks/task-group/task-group.component';
 import { SiteIconComponent } from './site-icon/site-icon.component';
 import { LateralMenuComponent } from './lateral-menu/lateral-menu.component';
+import { FileDropComponent } from './file-drop/file-drop.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { LateralMenuComponent } from './lateral-menu/lateral-menu.component';
     TaskGroupComponent,
     SiteIconComponent,
     LateralMenuComponent,
+    FileDropComponent,
   ],
   imports: [
     BrowserModule,

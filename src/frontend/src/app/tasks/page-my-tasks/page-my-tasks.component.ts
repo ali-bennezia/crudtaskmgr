@@ -14,6 +14,8 @@ export class PageMyTasksComponent implements OnInit {
 
   groups: TaskGroup[] = [];
 
+  taskGroupCreation: boolean = false;
+
   constructor(private http: HttpClient, private auth: AuthService) {}
 
   ngOnInit(): void {
