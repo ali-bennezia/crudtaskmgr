@@ -2,6 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import TaskGroup from '../task-group';
 import { AuthService } from 'src/app/auth.service';
+import {
+  FormGroup,
+  FormControl,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 import config from './../../../backend.json';
 
 @Component({
@@ -16,7 +22,18 @@ export class PageMyTasksComponent implements OnInit {
 
   taskGroupCreation: boolean = false;
 
-  constructor(private http: HttpClient, private auth: AuthService) {}
+  taskGroupCreationForm!: FormGroup;
+
+  constructor(
+    private http: HttpClient,
+    private auth: AuthService,
+    private builder: FormBuilder
+  ) {
+    this.taskGroupCreationForm = builder.group({
+      title: ['', [Validators.required]],
+      files: [[]],
+    });
+  }
 
   ngOnInit(): void {
     this.http

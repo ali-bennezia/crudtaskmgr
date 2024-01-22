@@ -20,6 +20,7 @@ import { TaskGroupComponent } from './tasks/task-group/task-group.component';
 import { SiteIconComponent } from './site-icon/site-icon.component';
 import { LateralMenuComponent } from './lateral-menu/lateral-menu.component';
 import { FileDropComponent } from './file-drop/file-drop.component';
+import { FileDropFileComponent } from './file-drop-file/file-drop-file.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { FileDropComponent } from './file-drop/file-drop.component';
     SiteIconComponent,
     LateralMenuComponent,
     FileDropComponent,
+    FileDropFileComponent,
   ],
   imports: [
     BrowserModule,

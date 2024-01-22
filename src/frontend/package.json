@@ -20,6 +20,7 @@
     "@angular/router": "^16.0.0",
     "@ng-icons/bootstrap-icons": "^26.3.0",
     "@ng-icons/core": "^26.3.0",
+    "file-type-checker": "^1.0.8",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"

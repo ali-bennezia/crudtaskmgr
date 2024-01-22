@@ -20,7 +20,7 @@
     Create Task Group
   </h4>
 
-  <form>
+  <form [formGroup]="taskGroupCreationForm">
     <label style="display: block; margin-left: 20px">Title</label>
     <input
       type="text"
@@ -31,6 +31,7 @@
         transform: translateX(-50%);
         width: 90%;
       "
+      formControlName="title"
     />
     <label style="display: block; margin-left: 20px">Files</label>
     <app-file-drop></app-file-drop>
@@ -40,7 +41,7 @@
         value="Create"
         class="create-gp"
         style="margin: 8px"
-        [disabled]="!taskGroupCreation"
+        [disabled]="!taskGroupCreation || taskGroupCreationForm.invalid"
       />
       <button
         class="delete-gp"
