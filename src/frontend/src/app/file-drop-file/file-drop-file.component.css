@@ -1,10 +1,75 @@
 .file-data-cont {
+  font-size: 10px;
+}
+
+.file-data-cont:hover {
+  outline: solid 4px rgba(207, 207, 207, 0.445);
+  border-radius: 8px;
+}
+
+.file-archive-cont {
   color: rgb(71, 71, 71);
   font-size: 12px;
-  background-color: red;
   width: 100%;
   height: 100%;
   position: relative;
   top: 0;
   left: 0;
+}
+
+.file-data-label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.file-data-menu-selector {
+  position: relative;
+
+  border-radius: 10px;
+  bottom: 24px;
+  left: 4px;
+}
+
+.file-data-menu-selector > span {
+  float: left;
+}
+
+.file-data-menu-selector > span > * {
+  margin: 0 auto;
+
+  border-radius: 50%;
+
+  outline: solid rgba(0, 0, 0, 0.322) 4px;
+  width: 20px;
+  height: 20px;
+  /*overflow: hidden;*/
+  color: white;
+  font-size: 14px;
+
+  scale: 1;
+  transition: scale 0.1s ease-out;
+}
+
+.file-data-menu-selector > span > *:hover {
+  scale: 1.2;
+  transition: scale 0.1s ease-in;
+  cursor: pointer;
+}
+
+.file-data-menu-selector > span > * > ng-icon {
+  position: relative;
+  height: auto;
+  bottom: 3px;
+  left: 3px;
+}
+
+.file-data-cont .file-data-menu-selector {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.file-data-cont:hover .file-data-menu-selector {
+  opacity: 1;
+  transition: opacity 0.3s;
 }

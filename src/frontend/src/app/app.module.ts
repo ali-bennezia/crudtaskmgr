@@ -6,7 +6,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgIconsModule } from '@ng-icons/core';
-import { bootstrapPower } from '@ng-icons/bootstrap-icons';
+import {
+  bootstrapPower,
+  bootstrapFileEarmarkZip,
+  bootstrapTrash3Fill,
+  bootstrapFileEarmark,
+  bootstrapFileEarmarkText,
+} from '@ng-icons/bootstrap-icons';
 
 import { AppComponent } from './app.component';
 import { ROUTES } from './routes';
@@ -21,6 +27,7 @@ import { SiteIconComponent } from './site-icon/site-icon.component';
 import { LateralMenuComponent } from './lateral-menu/lateral-menu.component';
 import { FileDropComponent } from './file-drop/file-drop.component';
 import { FileDropFileComponent } from './file-drop-file/file-drop-file.component';
+import { DataFormatPipe } from './data-format.pipe';
 
 @NgModule({
   declarations: [
@@ -35,6 +42,7 @@ import { FileDropFileComponent } from './file-drop-file/file-drop-file.component
     LateralMenuComponent,
     FileDropComponent,
     FileDropFileComponent,
+    DataFormatPipe,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +50,13 @@ import { FileDropFileComponent } from './file-drop-file/file-drop-file.component
     RouterModule.forRoot(ROUTES),
     HttpClientModule,
     ReactiveFormsModule,
-    NgIconsModule.withIcons({ bootstrapPower }),
+    NgIconsModule.withIcons({
+      bootstrapPower,
+      bootstrapFileEarmarkZip,
+      bootstrapTrash3Fill,
+      bootstrapFileEarmark,
+      bootstrapFileEarmarkText,
+    }),
   ],
   providers: [interceptorProviders],
   bootstrap: [AppComponent],

@@ -34,7 +34,7 @@
       formControlName="title"
     />
     <label style="display: block; margin-left: 20px">Files</label>
-    <app-file-drop></app-file-drop>
+    <app-file-drop #fileDrop></app-file-drop>
     <span style="display: block">
       <input
         type="submit"
@@ -42,11 +42,12 @@
         class="create-gp"
         style="margin: 8px"
         [disabled]="!taskGroupCreation || taskGroupCreationForm.invalid"
+        (click)="onCreationFormCreate()"
       />
       <button
         class="delete-gp"
         style="margin: 8px"
-        (click)="taskGroupCreation = false"
+        (click)="onCreationFormCancel()"
         [disabled]="!taskGroupCreation"
       >
         Cancel

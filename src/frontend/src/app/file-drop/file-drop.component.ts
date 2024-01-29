@@ -40,13 +40,15 @@ export class FileDropComponent {
 
   files: DisplayFile[] = [];
   removeFile(index: number) {
+    this.fileInput.nativeElement.files = null;
     const [removedFile] = this.files.splice(index, 1);
     if (removedFile.displayType == DisplayFileType.IMAGE) {
       URL.revokeObjectURL(removedFile.url);
     }
   }
   clearFiles() {
-    for (let i = 0; i < this.files.length; ++i) {
+    const length = this.files.length;
+    for (let i = 0; i < length; ++i) {
       this.removeFile(0);
     }
   }
@@ -54,16 +56,37 @@ export class FileDropComponent {
     const reader = new FileReader();
 
     reader.onload = () => {
-      const type = fileTypeChecker.detectFile(reader.result as ArrayBuffer);
-      const displayType = getFileDisplayType(file, type);
-      this.files.push({
-        file: file,
-        url:
-          displayType == DisplayFileType.IMAGE ? URL.createObjectURL(file) : '',
-        type: type!.mimeType,
-        displayType: displayType,
-        size: file.size,
-      });
+      try {
+        const type = fileTypeChecker.detectFile(reader.result as ArrayBuffer);
+        const displayType = getFileDisplayType(file, type);
+        this.files.push({
+          file: file,
+          url:
+            displayType == DisplayFileType.IMAGE
+              ? URL.createObjectURL(file)
+              : '',
+          type: type!.mimeType,
+          displayType: displayType,
+          size: file.size,
+        });
+      } catch {
+        let displayType;
+        if (file.name.endsWith('.txt')) {
+          displayType = DisplayFileType.TEXT;
+        } else {
+          displayType = DisplayFileType.OTHER;
+        }
+        this.files.push({
+          file: file,
+          url: '',
+          type:
+            displayType == DisplayFileType.TEXT
+              ? 'text/plain'
+              : 'application/octet-stream',
+          displayType: displayType,
+          size: file.size,
+        });
+      }
     };
 
     reader.readAsArrayBuffer(file);

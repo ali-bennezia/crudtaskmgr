@@ -1,4 +1,11 @@
-<app-file-drop-file *ngFor="let d of files" [file]="d"></app-file-drop-file>
+<div style="padding: 8px">
+  <app-file-drop-file
+    *ngFor="let d of files; let i = index"
+    [file]="d"
+    [index]="i"
+    [parent]="this"
+  ></app-file-drop-file>
+</div>
 <input
   style="display: inline-block; width: 60%; font-size: 16px"
   type="file"
