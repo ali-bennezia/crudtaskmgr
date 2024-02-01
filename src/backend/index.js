@@ -4,12 +4,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const app = express();
+const fileUtils = require("./utils/files.js");
 
 // config
 
 dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const authMiddlewares = require("./middlewares/authMiddlewares.js");
 
 const PORT = process.env.PORT ?? 5506;
 const DB_URL = process.env.DB_URL;
@@ -20,6 +23,11 @@ if (!DB_URL) {
 if (!JWT_KEY) {
   throw "Error: no JWT_KEY parameter is configured for authentication.";
 }
+
+const UPLOADS_PATH = process.env.UPLOADS_PATH ?? "uploads";
+fileUtils.generateUploadDirectory();
+
+app.use("/files", authMiddlewares.checkToken, express.static(UPLOADS_PATH));
 
 const FRONTEND_URL = process.env.FRONTEND_URL;
 

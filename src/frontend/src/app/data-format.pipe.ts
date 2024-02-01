@@ -14,6 +14,6 @@ export class DataFormatPipe implements PipeTransform {
       ++i;
     }
 
-    return `${value.toString()} ${this.units[i]}${n != 1 ? 's' : ''}`;
+    return `${n.toString()} ${this.units[i]}${n != 1 ? 's' : ''}`;
   }
 }

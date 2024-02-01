@@ -12,6 +12,7 @@ import {
   bootstrapTrash3Fill,
   bootstrapFileEarmark,
   bootstrapFileEarmarkText,
+  bootstrapFileEarmarkPlay,
 } from '@ng-icons/bootstrap-icons';
 
 import { AppComponent } from './app.component';
@@ -56,6 +57,7 @@ import { DataFormatPipe } from './data-format.pipe';
       bootstrapTrash3Fill,
       bootstrapFileEarmark,
       bootstrapFileEarmarkText,
+      bootstrapFileEarmarkPlay,
     }),
   ],
   providers: [interceptorProviders],

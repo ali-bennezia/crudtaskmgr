@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const taskModel = require("./taskModel.js");
 
 const schema = new mongoose.Schema({
-  title: { type: String, required: true },
+  title: { type: String, required: true, minlength: 3, maxlength: 30 },
   files: [String],
 });
 

@@ -1,95 +1,123 @@
 <div
+  @enterLeave
   class="file-data-cont"
   style="display: inline-block; width: 72px; height: 72px; margin: 11px"
   [ngSwitch]="file.displayType"
 >
-  <img
-    [src]="file.url"
-    style="width: 100%; height: 100%; object-fit: fill; border-radius: 8px"
-    *ngSwitchCase="displayFileTypeEnum.IMAGE"
-  />
-  <div
-    class="file-archive-cont"
-    style="width: 100%"
-    *ngSwitchCase="displayFileTypeEnum.ARCHIVE"
-  >
-    <ng-icon
-      name="bootstrapFileEarmarkZip"
-      style="
-        font-size: 40px;
-        position: relative;
-        left: 16px;
-        bottom: 12px;
-        margin: 0 auto;
-        height: auto;
-      "
-    ></ng-icon>
-    <p
-      class="file-data-label"
-      style="position: relative; bottom: 24px; text-align: center"
+  <div style="height: 100%; width: 100%; overflow: hidden; border-radius: 8px">
+    <img
+      [src]="file.url"
+      class="file-display-cont"
+      *ngSwitchCase="displayFileTypeEnum.IMAGE"
+    />
+    <div *ngSwitchCase="displayFileTypeEnum.VIDEO" class="file-display-cont">
+      <ng-icon
+        name="bootstrapFileEarmarkPlay"
+        style="
+          font-size: 40px;
+          position: relative;
+          left: 16px;
+          bottom: 12px;
+          margin: 0 auto;
+          height: auto;
+        "
+      ></ng-icon>
+      <p
+        class="file-data-label"
+        style="position: relative; bottom: 24px; text-align: center"
+      >
+        {{ file.file.name }}
+      </p>
+      <p
+        class="file-data-label"
+        style="position: relative; top: -44px; text-align: center"
+      >
+        {{ file.size | dataFormat }}
+      </p>
+    </div>
+    <div
+      class="file-archive-cont"
+      style="width: 100%"
+      *ngSwitchCase="displayFileTypeEnum.ARCHIVE"
     >
-      {{ file.file.name }}
-    </p>
-    <p
-      class="file-data-label"
-      style="position: relative; top: -44px; text-align: center"
+      <ng-icon
+        name="bootstrapFileEarmarkZip"
+        style="
+          font-size: 40px;
+          position: relative;
+          left: 16px;
+          bottom: 12px;
+          margin: 0 auto;
+          height: auto;
+        "
+      ></ng-icon>
+      <p
+        class="file-data-label"
+        style="position: relative; bottom: 24px; text-align: center"
+      >
+        {{ file.file.name }}
+      </p>
+      <p
+        class="file-data-label"
+        style="position: relative; top: -44px; text-align: center"
+      >
+        {{ file.size | dataFormat }}
+      </p>
+    </div>
+    <div
+      class="file-archive-cont"
+      style="width: 100%"
+      *ngSwitchCase="displayFileTypeEnum.TEXT"
     >
-      {{ file.size | dataFormat }}
-    </p>
-  </div>
-  <div
-    class="file-archive-cont"
-    style="width: 100%"
-    *ngSwitchCase="displayFileTypeEnum.TEXT"
-  >
-    <ng-icon
-      name="bootstrapFileEarmarkText"
-      style="
-        font-size: 40px;
-        position: relative;
-        left: 16px;
-        bottom: 12px;
-        margin: 0 auto;
-        height: auto;
-      "
-    ></ng-icon>
-    <p
-      class="file-data-label"
-      style="position: relative; bottom: 24px; text-align: center"
-    >
-      {{ file.file.name }}
-    </p>
-    <p
-      class="file-data-label"
-      style="position: relative; top: -44px; text-align: center"
-    >
-      {{ file.size | dataFormat }}
-    </p>
-  </div>
-  <div class="file-archive-cont" style="width: 100%" *ngSwitchDefault>
-    <ng-icon
-      name="bootstrapFileEarmark"
-      style="
-        font-size: 40px;
-        position: relative;
-        left: 16px;
-        bottom: 12px;
-        margin: 0 auto;
-        height: auto;
-      "
-    ></ng-icon>
-    <p
-      class="file-data-label"
-      style="position: relative; bottom: 24px; text-align: center"
-    >
-      {{ file.file.name }}
-    </p>
-    <p
-      class="file-data-label"
-      style="position: relative; top: -44px; text-align: center"
-    >
-      {{ file.size | dataFormat }}
-    </p>
+      <ng-icon
+        name="bootstrapFileEarmarkText"
+        style="
+          font-size: 40px;
+          position: relative;
+          left: 16px;
+          bottom: 12px;
+          margin: 0 auto;
+          height: auto;
+        "
+      ></ng-icon>
+      <p
+        class="file-data-label"
+        style="position: relative; bottom: 24px; text-align: center"
+      >
+        {{ file.file.name }}
+      </p>
+      <p
+        class="file-data-label"
+        style="position: relative; top: -44px; text-align: center"
+      >
+        {{ file.size | dataFormat }}
+      </p>
+    </div>
+    <div class="file-archive-cont" style="width: 100%" *ngSwitchDefault>
+      <ng-icon
+        name="bootstrapFileEarmark"
+        style="
+          font-size: 40px;
+          position: relative;
+          left: 16px;
+          bottom: 12px;
+          margin: 0 auto;
+          height: auto;
+        "
+      ></ng-icon>
+      <p
+        class="file-data-label"
+        style="position: relative; bottom: 24px; text-align: center"
+      >
+        {{ file.file.name }}
+      </p>
+      <p
+        class="file-data-label"
+        style="position: relative; top: -44px; text-align: center"
+      >
+        {{ file.size | dataFormat }}
+      </p>
+    </div>
   </div>
   <div class="file-data-menu-selector">
     <span (click)="removeFile()">

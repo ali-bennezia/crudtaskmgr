@@ -11,6 +11,7 @@ export interface DisplayFile {
 
 export enum DisplayFileType {
   IMAGE,
+  VIDEO,
   ARCHIVE,
   TEXT,
   OTHER,
@@ -21,6 +22,7 @@ function getFileDisplayType(file: File, type: any): DisplayFileType {
     if (file.name.endsWith('.txt')) return DisplayFileType.TEXT;
   } else {
     if (type.mimeType.startsWith('image')) return DisplayFileType.IMAGE;
+    else if (type.mimeType.startsWith('video')) return DisplayFileType.VIDEO;
     else if (
       type!.mimeType.match(/^application\/x-(rar-)?compressed$/i)!.length > 0
     )
@@ -42,7 +44,10 @@ export class FileDropComponent {
   removeFile(index: number) {
     this.fileInput.nativeElement.files = null;
     const [removedFile] = this.files.splice(index, 1);
-    if (removedFile.displayType == DisplayFileType.IMAGE) {
+    if (
+      removedFile.displayType == DisplayFileType.IMAGE ||
+      removedFile.displayType == DisplayFileType.VIDEO
+    ) {
       URL.revokeObjectURL(removedFile.url);
     }
   }
@@ -62,7 +67,8 @@ export class FileDropComponent {
         this.files.push({
           file: file,
           url:
-            displayType == DisplayFileType.IMAGE
+            displayType == DisplayFileType.IMAGE ||
+            displayType == DisplayFileType.VIDEO
               ? URL.createObjectURL(file)
               : '',
           type: type!.mimeType,
