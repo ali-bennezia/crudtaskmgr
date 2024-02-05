@@ -3,6 +3,7 @@ const taskModel = require("./../models/taskModel.js");
 const groupModel = require("./../models/groupModel.js");
 
 const sanitationUtils = require("./../utils/sanitation.js");
+const fileUtils = require("./../utils/files.js");
 const checkType = sanitationUtils.checkType;
 
 exports.createTaskGroup = async function (req, res) {
@@ -11,8 +12,19 @@ exports.createTaskGroup = async function (req, res) {
       return res.status(400).json("Bad Request");
     }
 
+    const files = await Promise.all(
+      req.files.map(async function (f) {
+        return fileUtils.uploadFileAsync(f);
+      })
+    ).then((d) =>
+      d.map((f, i) => {
+        return { file: f, type: req.body.fileTypes[i] };
+      })
+    );
+
     const group = await groupModel.create({
       title: req.body.title,
+      files: files,
     });
     return res.status(201).json(group);
   } catch (err) {
@@ -26,9 +38,10 @@ exports.getTaskGroups = async function (req, res) {
     const groups = Promise.all(
       (await groupModel.find()).map(async function (g) {
         return {
+          groupId: g._id,
           title: groups.title,
           tasks: await taskModel.find({ group: g._id }),
-          files: [],
+          files: g.files,
         };
       })
     );
@@ -48,7 +61,7 @@ exports.updateTaskGroup = async function (req, res) {
       !checkType(req.body.title, "string", String)
     ) {
       return res.status(400).json("Bad Request");
-    } else if (await groupModel.exists({ _id: req.body.id })) {
+    } else if (!(await groupModel.exists({ _id: req.body.id }))) {
       return res.status(404).json("Not Found");
     }
 
@@ -66,7 +79,7 @@ exports.deleteTaskGroup = async function (req, res) {
   try {
     if (!"id" in req.body || !checkType(req.body.id, "string", String)) {
       return res.status(400).json("Bad Request");
-    } else if (await groupModel.exists({ _id: req.body.id })) {
+    } else if (!(await groupModel.exists({ _id: req.body.id }))) {
       return res.status(404).json("Not Found");
     }
     const group = await groupModel.deleteOne({ _id: req.body.id });

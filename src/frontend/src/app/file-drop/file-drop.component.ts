@@ -40,24 +40,29 @@ export class FileDropComponent {
   @ViewChild('fileInput', { static: true })
   fileInput!: ElementRef<HTMLInputElement>;
 
+  clearFileCache() {
+    this.fileInput.nativeElement.files = null;
+    this.fileInput.nativeElement.value = '';
+  }
+
   files: DisplayFile[] = [];
   removeFile(index: number) {
-    this.fileInput.nativeElement.files = null;
     const [removedFile] = this.files.splice(index, 1);
-    if (
-      removedFile.displayType == DisplayFileType.IMAGE ||
-      removedFile.displayType == DisplayFileType.VIDEO
-    ) {
+    if (removedFile.displayType == DisplayFileType.IMAGE) {
       URL.revokeObjectURL(removedFile.url);
     }
+    this.clearFileCache();
   }
   clearFiles() {
     const length = this.files.length;
     for (let i = 0; i < length; ++i) {
       this.removeFile(0);
     }
+    this.clearFileCache();
   }
   async addFile(file: File) {
+    this.clearFileCache();
+
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -67,8 +72,7 @@ export class FileDropComponent {
         this.files.push({
           file: file,
           url:
-            displayType == DisplayFileType.IMAGE ||
-            displayType == DisplayFileType.VIDEO
+            displayType == DisplayFileType.IMAGE
               ? URL.createObjectURL(file)
               : '',
           type: type!.mimeType,
@@ -118,10 +122,12 @@ export class FileDropComponent {
     } else {
       this.addFileList(event.dataTransfer!.files);
     }
+    this.clearFileCache();
   }
   onChange(event: Event) {
     if (this.fileInput.nativeElement.files!?.length > 0) {
       this.addFileList(this.fileInput.nativeElement.files!);
     }
+    this.clearFileCache();
   }
 }

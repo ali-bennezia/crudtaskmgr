@@ -38,6 +38,12 @@ app.all("*", function (req, res, next) {
   next();
 });
 
+if (!FRONTEND_URL) {
+  console.warn(
+    "There is no frontend url configured, therefore '*' will be used as CORS origin, but this should not be the case in production. You must configure one as 'FRONTEND_URL' in the .env file."
+  );
+}
+
 // routes
 
 const userRoutes = require("./routes/userRoutes.js");
