@@ -12,21 +12,23 @@ exports.createTaskGroup = async function (req, res) {
       return res.status(400).json("Bad Request");
     }
 
-    const files = await Promise.all(
-      req.files.map(async function (f) {
-        return fileUtils.uploadFileAsync(f);
-      })
-    ).then((d) =>
-      d.map((f, i) => {
-        return { file: f, type: req.body.fileTypes[i] };
-      })
-    );
+    const files = (
+      await Promise.all(
+        req.files.map(async function (f) {
+          return fileUtils.uploadFileAsync(
+            f,
+            fileUtils.getFileDisplayType(f).displayType
+          );
+        })
+      )
+    ).map((f) => f.path);
 
     const group = await groupModel.create({
       title: req.body.title,
+      tasks: [],
       files: files,
     });
-    return res.status(201).json(group);
+    return res.status(201).json(sanitationUtils.formatGroup(group));
   } catch (err) {
     console.error(err);
     return res.status(500).json("Internal Server Error");
@@ -35,14 +37,11 @@ exports.createTaskGroup = async function (req, res) {
 
 exports.getTaskGroups = async function (req, res) {
   try {
-    const groups = Promise.all(
-      (await groupModel.find()).map(async function (g) {
-        return {
-          groupId: g._id,
-          title: groups.title,
-          tasks: await taskModel.find({ group: g._id }),
-          files: g.files,
-        };
+    const groups = await Promise.all(
+      (
+        await groupModel.find().exec()
+      ).map(async function (g) {
+        return sanitationUtils.formatGroup(g);
       })
     );
     return res.status(200).json(groups);
@@ -68,7 +67,7 @@ exports.updateTaskGroup = async function (req, res) {
     const group = await groupModel.findOne({ _id: req.body.id });
     group.title = req.body.title;
     await group.save();
-    return res.status(200).json(group);
+    return res.status(200).json(sanitationUtils.formatGroup(group));
   } catch (err) {
     console.error(err);
     return res.status(500).json("Internal Server Error");
@@ -77,13 +76,13 @@ exports.updateTaskGroup = async function (req, res) {
 
 exports.deleteTaskGroup = async function (req, res) {
   try {
-    if (!"id" in req.body || !checkType(req.body.id, "string", String)) {
+    if (!"id" in req.params || !checkType(req.params.id, "string", String)) {
       return res.status(400).json("Bad Request");
-    } else if (!(await groupModel.exists({ _id: req.body.id }))) {
+    } else if (!(await groupModel.exists({ _id: req.params.id }))) {
       return res.status(404).json("Not Found");
     }
-    const group = await groupModel.deleteOne({ _id: req.body.id });
-    return res.status(204).json(group);
+    const result = await groupModel.deleteOne({ _id: req.params.id });
+    return res.status(204).json(result);
   } catch (err) {
     console.error(err);
     return res.status(500).json("Internal Server Error");

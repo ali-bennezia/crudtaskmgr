@@ -4,7 +4,6 @@ const JWT_KEY = process.env.JWT_KEY;
 const userModel = require("./../models/userModel");
 
 exports.checkToken = async function (req, res, next) {
-  console.log(req.headers);
   if (!("authorization" in req.headers)) {
     res.set("WWW-Authenticate", 'Bearer realm="App"');
     return res.status(401).json("Unauthorized");

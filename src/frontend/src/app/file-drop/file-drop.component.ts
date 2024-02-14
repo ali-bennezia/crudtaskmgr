@@ -17,18 +17,40 @@ export enum DisplayFileType {
   OTHER,
 }
 
-function getFileDisplayType(file: File, type: any): DisplayFileType {
-  if (type == undefined) {
-    if (file.name.endsWith('.txt')) return DisplayFileType.TEXT;
-  } else {
-    if (type.mimeType.startsWith('image')) return DisplayFileType.IMAGE;
-    else if (type.mimeType.startsWith('video')) return DisplayFileType.VIDEO;
-    else if (
-      type!.mimeType.match(/^application\/x-(rar-)?compressed$/i)!.length > 0
-    )
-      return DisplayFileType.ARCHIVE;
+function getFileDisplayType(
+  file: File,
+  buffer: ArrayBuffer
+): { displayType: DisplayFileType; mimeType: string } {
+  let displayType: DisplayFileType = DisplayFileType.OTHER;
+  let type: any = null;
+
+  try {
+    type = fileTypeChecker.detectFile(buffer);
+    if (type == undefined) {
+      if (file.name.endsWith('.txt')) displayType = DisplayFileType.TEXT;
+    } else {
+      if (type.mimeType.startsWith('image'))
+        displayType = DisplayFileType.IMAGE;
+      else if (type.mimeType.startsWith('video'))
+        displayType = DisplayFileType.VIDEO;
+      else if (
+        type!.mimeType.match(/^application\/x-(rar-)?compressed$/i)!.length > 0
+      )
+        displayType = DisplayFileType.ARCHIVE;
+    }
+  } catch {
+    if (file.name.endsWith('.txt')) {
+      displayType = DisplayFileType.TEXT;
+    }
   }
-  return DisplayFileType.OTHER;
+  return {
+    displayType: displayType,
+    mimeType:
+      type?.mimeType ??
+      (displayType == DisplayFileType.TEXT
+        ? 'text/plain'
+        : 'application/octet-stream'),
+  };
 }
 
 @Component({
@@ -61,42 +83,21 @@ export class FileDropComponent {
     this.clearFileCache();
   }
   async addFile(file: File) {
-    this.clearFileCache();
-
     const reader = new FileReader();
 
     reader.onload = () => {
-      try {
-        const type = fileTypeChecker.detectFile(reader.result as ArrayBuffer);
-        const displayType = getFileDisplayType(file, type);
-        this.files.push({
-          file: file,
-          url:
-            displayType == DisplayFileType.IMAGE
-              ? URL.createObjectURL(file)
-              : '',
-          type: type!.mimeType,
-          displayType: displayType,
-          size: file.size,
-        });
-      } catch {
-        let displayType;
-        if (file.name.endsWith('.txt')) {
-          displayType = DisplayFileType.TEXT;
-        } else {
-          displayType = DisplayFileType.OTHER;
-        }
-        this.files.push({
-          file: file,
-          url: '',
-          type:
-            displayType == DisplayFileType.TEXT
-              ? 'text/plain'
-              : 'application/octet-stream',
-          displayType: displayType,
-          size: file.size,
-        });
-      }
+      const { displayType, mimeType } = getFileDisplayType(
+        file,
+        reader.result as ArrayBuffer
+      );
+      this.files.push({
+        file: file,
+        url:
+          displayType == DisplayFileType.IMAGE ? URL.createObjectURL(file) : '',
+        type: mimeType,
+        displayType: displayType,
+        size: file.size,
+      });
     };
 
     reader.readAsArrayBuffer(file);

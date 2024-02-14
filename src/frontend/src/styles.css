@@ -130,6 +130,29 @@ input.ng-invalid.ng-touched {
   transform: translateY(-50%);
 }
 
-ng-icon {
+ng-icon,
+.icon-btn > ng-icon {
   height: auto;
+}
+
+.icon-btn {
+  background-color: rgb(243, 243, 243);
+  border: solid 1px rgb(214, 214, 214);
+  border-radius: 50%;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  scale: 1;
+  transition: scale 100ms ease-in;
+  box-shadow: rgba(0, 0, 0, 0.144) 0px 0px 8px;
+}
+
+.icon-btn > * {
+  margin-left: 6px;
+}
+
+.icon-btn:hover {
+  scale: 1.3;
+  transition: scale 100ms ease-out;
+  cursor: pointer;
 }

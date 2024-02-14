@@ -1,5 +1,9 @@
 <div id="task-cont" *ngIf="groups.length > 0; else elseBlock">
-  <app-task-group *ngFor="let g of groups"></app-task-group>
+  <app-task-group
+    *ngFor="let g of groups"
+    [taskGroup]="g.g"
+    (deleteAction)="deleteTaskGroup(g)"
+  ></app-task-group>
 </div>
 <ng-template #elseBlock>
   <article>
@@ -41,14 +45,18 @@
         value="Create"
         class="create-gp"
         style="margin: 8px"
-        [disabled]="!taskGroupCreation || taskGroupCreationForm.invalid"
+        [disabled]="
+          !taskGroupCreation ||
+          taskGroupCreationForm.invalid ||
+          taskGroupCreationLoading
+        "
         (click)="onCreationFormCreate()"
       />
       <button
         class="delete-gp"
         style="margin: 8px"
         (click)="onCreationFormCancel()"
-        [disabled]="!taskGroupCreation"
+        [disabled]="!taskGroupCreation || taskGroupCreationLoading"
       >
         Cancel
       </button>

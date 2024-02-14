@@ -1,7 +1,10 @@
 <div class="task-group-cont">
-  <h3>Some task</h3>
+  <h3>{{ taskGroup.title }}</h3>
   <p>
     Some task descriptionSome task descriptionSome task descriptionSome task
     descriptionSome task description
   </p>
+  <div class="icon-btn" (click)="onClickDelete()">
+    <ng-icon name="bootstrapTrash"></ng-icon>
+  </div>
 </div>

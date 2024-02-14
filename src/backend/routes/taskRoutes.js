@@ -2,6 +2,7 @@ const express = require("express");
 const controller = require("./../controllers/taskController.js");
 const authMiddlewares = require("./../middlewares/authMiddlewares.js");
 const multer = require("multer");
+const upload = multer();
 const router = express.Router();
 
 const MAX_FILE_UPLOAD_AMOUNT = process.env.MAX_FILE_UPLOAD_AMOUNT ?? 12;
@@ -9,12 +10,12 @@ const MAX_FILE_UPLOAD_AMOUNT = process.env.MAX_FILE_UPLOAD_AMOUNT ?? 12;
 router.post(
   "/group/create",
   authMiddlewares.checkToken,
-  multer.array("files", MAX_FILE_UPLOAD_AMOUNT),
+  upload.array("files", MAX_FILE_UPLOAD_AMOUNT),
   controller.createTaskGroup
 );
 router.get("/group/read", authMiddlewares.checkToken, controller.getTaskGroups);
 router.delete(
-  "/group/delete",
+  "/group/delete/:id",
   authMiddlewares.checkToken,
   controller.deleteTaskGroup
 );
