@@ -72,8 +72,9 @@ mongoose
 
 //debug
 
-const fs = require("fs");
+/*const fs = require("fs");
 const buffer = fs.readFileSync("./i.png");
 console.log(
   fileUtils.getFileDisplayType({ arrayBuffer: buffer, name: "i.png" })
 );
+*/

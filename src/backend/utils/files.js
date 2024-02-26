@@ -3,6 +3,9 @@ const fs = require("fs");
 const { posix: path } = require("path");
 const fileModel = require("./../models/fileModel.js");
 const fileTypeChecker = require("file-type-checker");
+const mimeTypes = require("mime-types");
+const groupModel = require("./../models/groupModel.js");
+const { cascadeGroupDeletion } = require("./groups.js");
 
 const DisplayFileType = {
   IMAGE: "image",
@@ -43,10 +46,17 @@ exports.generateUploadDirectory = function generateUploadDirectory() {
  * Stores a file buffer on the file system and stores its associated data on the database.
  * @param file The File object.
  * @param fileType The file type. See the type property on the file model. An enum: ["image", "video", "archive", "text", "other"]
+ * @param groupId the parent group's id
  * @returns An object { file, path } with file the file model object, path its upload path.
  */
-exports.uploadFileAsync = async function uploadFileAsync(file, fileType) {
-  const createdFileName = v1();
+exports.uploadFileAsync = async function uploadFileAsync(
+  file,
+  fileType,
+  groupId
+) {
+  const ext = mimeTypes.extension(file.mimetype);
+  if (!ext) throw "Unknown file mime type.";
+  const createdFileName = `${v1()}.${ext}`;
   const createdFilePath = path.join(UPLOADS_PATH, createdFileName);
 
   try {
@@ -54,6 +64,7 @@ exports.uploadFileAsync = async function uploadFileAsync(file, fileType) {
       url: createdFilePath,
       name: file.originalname,
       type: fileType,
+      group: groupId,
     });
 
     removeLocalFile(createdFilePath);
@@ -106,4 +117,24 @@ exports.getFileDisplayType = function getFileDisplayType(file) {
         ? "text/plain"
         : "application/octet-stream"),
   };
+};
+
+exports.eraseFileGroupLinks = async function eraseFileGroupLinks(url) {
+  const gps = await groupModel.find({ files: url });
+
+  return Promise.all(
+    gps.map(async function (gDoc) {
+      gDoc.files = gDoc.files.filter((f) => f != url);
+      return gDoc.save();
+    })
+  );
+};
+
+exports.cascadeFileDeletion = async function (file) {
+  if (file) {
+    let url = file.url;
+
+    removeLocalFile(url);
+    await this.eraseFileGroupLinks(url);
+  } else throw "Unable to execute file deletion cascade, no file given.";
 };

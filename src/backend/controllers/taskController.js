@@ -12,22 +12,27 @@ exports.createTaskGroup = async function (req, res) {
       return res.status(400).json("Bad Request");
     }
 
+    const group = await groupModel.create({
+      title: req.body.title,
+      tasks: [],
+      files: [],
+    });
+
     const files = (
       await Promise.all(
         req.files.map(async function (f) {
           return fileUtils.uploadFileAsync(
             f,
-            fileUtils.getFileDisplayType(f).displayType
+            fileUtils.getFileDisplayType(f).displayType,
+            group._id
           );
         })
       )
     ).map((f) => f.path);
 
-    const group = await groupModel.create({
-      title: req.body.title,
-      tasks: [],
-      files: files,
-    });
+    group.files = files;
+    await group.save();
+
     return res.status(201).json(sanitationUtils.formatGroup(group));
   } catch (err) {
     console.error(err);

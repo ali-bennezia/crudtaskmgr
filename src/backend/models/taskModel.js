@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const groupModel = require("./groupModel");
+const taskUtils = require("./../utils/tasks");
 
 const schema = new mongoose.Schema(
   {
@@ -40,13 +40,13 @@ schema.pre("save", async function (next) {
   next();
 });
 
-schema.pre("remove", async function (next) {
-  let parent = await groupModel.findOne({ _id: this.group });
-  if (parent) {
-    parent.tasks = parent.tasks.filter((t) => t != this._id);
-    await parent.save();
+schema.pre(
+  ["deleteOne", "deleteMany"],
+  { document: false, query: true },
+  async function (next) {
+    //await taskUtils.cascadeTaskDeletion(taskModel, this.getFilter().group);
+    next();
   }
-  next();
-});
+);
 
-module.exports = mongoose.model("task", schema);
+var taskModel = (module.exports = mongoose.model("task", schema));
