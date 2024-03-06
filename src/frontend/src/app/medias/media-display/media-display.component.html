@@ -1,0 +1,13 @@
+<ng-container *ngIf="!loading">
+  <div
+    [ngSwitch]="displayType"
+    class="media-display"
+    [class]="{
+      'media-display-error': error,
+      'media-display-selected': selected
+    }"
+    (click)="onClick($event)"
+  >
+    <img *ngSwitchCase="displayFileTypes.IMAGE" [src]="dataUrl" />
+  </div>
+</ng-container>

@@ -49,6 +49,7 @@ export class PageMyTasksComponent implements OnInit {
           Validators.maxLength(30),
         ],
       ],
+      description: ['', [Validators.minLength(0), Validators.maxLength(120)]],
       files: [[]],
     });
   }
@@ -87,6 +88,10 @@ export class PageMyTasksComponent implements OnInit {
     formData.append(
       'title',
       this.taskGroupCreationForm.get('title')?.value ?? ''
+    );
+    formData.append(
+      'description',
+      this.taskGroupCreationForm.get('description')?.value ?? ''
     );
     if (this.fileDrop.length > 0) {
       let fileDropComp: FileDropComponent = this.fileDrop.first;

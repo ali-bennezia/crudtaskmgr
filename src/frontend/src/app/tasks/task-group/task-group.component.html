@@ -1,9 +1,9 @@
 <div class="task-group-cont">
   <h3>{{ taskGroup.title }}</h3>
   <p>
-    Some task descriptionSome task descriptionSome task descriptionSome task
-    descriptionSome task description
+    {{ taskGroup.description }}
   </p>
+  <app-medias-display [medias]="this.taskGroup.files"></app-medias-display>
   <div class="icon-btn" (click)="onClickDelete()">
     <ng-icon name="bootstrapTrash"></ng-icon>
   </div>

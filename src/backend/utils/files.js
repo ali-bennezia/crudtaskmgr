@@ -23,14 +23,13 @@ const UPLOADS_PATH = process.env.UPLOADS_PATH ?? "uploads";
  * Removes a file from the local file system.
  * @param path The path.
  */
-function removeLocalFile(path) {
+exports.removeLocalFile = function removeLocalFile(path) {
   try {
     if (fs.existsSync(path)) fs.unlinkSync(path);
   } catch (err) {
     console.error(err);
   }
-}
-exports.removeLocalFile = removeLocalFile;
+};
 
 exports.generateUploadDirectory = function generateUploadDirectory() {
   try {
@@ -67,7 +66,7 @@ exports.uploadFileAsync = async function uploadFileAsync(
       group: groupId,
     });
 
-    removeLocalFile(createdFilePath);
+    this.removeLocalFile(createdFilePath);
     let fd = fs.openSync(createdFilePath, "w");
     fs.writeSync(fd, file.buffer, 0, file.size, 0);
     fs.closeSync(fd);
@@ -134,7 +133,7 @@ exports.cascadeFileDeletion = async function (file) {
   if (file) {
     let url = file.url;
 
-    removeLocalFile(url);
+    this.removeLocalFile(url);
     await this.eraseFileGroupLinks(url);
   } else throw "Unable to execute file deletion cascade, no file given.";
 };

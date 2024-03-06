@@ -24,17 +24,19 @@ if (!JWT_KEY) {
   throw "Error: no JWT_KEY parameter is configured for authentication.";
 }
 
-const UPLOADS_PATH = process.env.UPLOADS_PATH ?? "uploads";
-fileUtils.generateUploadDirectory();
-
-app.use("/files", authMiddlewares.checkToken, express.static(UPLOADS_PATH));
-
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
 app.all("*", function (req, res, next) {
   res.set("Access-Control-Allow-Origin", FRONTEND_URL ?? "*");
-  res.set("Access-Control-Allow-Methods", "*");
-  res.set("Access-Control-Allow-Headers", "*");
+  res.set(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+  );
+  res.set(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, Origin"
+  );
+  if (req.method === "OPTIONS") return res.sendStatus(200);
   next();
 });
 
@@ -43,6 +45,11 @@ if (!FRONTEND_URL) {
     "There is no frontend url configured, therefore '*' will be used as CORS origin, but this should not be the case in production. You must configure one as 'FRONTEND_URL' in the .env file."
   );
 }
+
+const UPLOADS_PATH = process.env.UPLOADS_PATH ?? "uploads";
+fileUtils.generateUploadDirectory();
+
+app.use("/files", authMiddlewares.checkToken, express.static(UPLOADS_PATH));
 
 // routes
 

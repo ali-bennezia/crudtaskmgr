@@ -1,0 +1,25 @@
+.media-display {
+  object-fit: contain;
+  max-width: 100px;
+  max-height: 100px;
+  scale: 1;
+  margin: 8px;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: scale 100ms ease-in;
+}
+
+.media-display:hover {
+  scale: 1.1;
+  outline: solid 4px rgba(0, 0, 0, 0.13);
+  cursor: pointer;
+}
+
+.media-display img {
+  width: 100%;
+  height: 100%;
+}
+
+.media-display-selected {
+  outline: solid 2px rgba(0, 0, 0, 0.233);
+}

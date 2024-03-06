@@ -17,6 +17,45 @@ export enum DisplayFileType {
   OTHER,
 }
 
+function getFileArrayBufferDisplayType(
+  fileName: string,
+  buffer: ArrayBuffer
+): {
+  displayType: DisplayFileType;
+  mimeType: string;
+} {
+  let displayType: DisplayFileType = DisplayFileType.OTHER;
+  let type: any = null;
+
+  try {
+    type = fileTypeChecker.detectFile(buffer);
+    if (type == undefined) {
+      if (fileName.endsWith('.txt')) displayType = DisplayFileType.TEXT;
+    } else {
+      if (type.mimeType.startsWith('image'))
+        displayType = DisplayFileType.IMAGE;
+      else if (type.mimeType.startsWith('video'))
+        displayType = DisplayFileType.VIDEO;
+      else if (
+        type!.mimeType.match(/^application\/x-(rar-)?compressed$/i)!.length > 0
+      )
+        displayType = DisplayFileType.ARCHIVE;
+    }
+  } catch {
+    if (fileName.endsWith('.txt')) {
+      displayType = DisplayFileType.TEXT;
+    }
+  }
+  return {
+    displayType: displayType,
+    mimeType:
+      type?.mimeType ??
+      (displayType == DisplayFileType.TEXT
+        ? 'text/plain'
+        : 'application/octet-stream'),
+  };
+}
+
 function getFileDisplayType(
   file: File,
   buffer: ArrayBuffer
@@ -52,6 +91,8 @@ function getFileDisplayType(
         : 'application/octet-stream'),
   };
 }
+
+export { getFileArrayBufferDisplayType, getFileDisplayType };
 
 @Component({
   selector: 'app-file-drop',

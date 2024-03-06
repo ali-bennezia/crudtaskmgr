@@ -3,6 +3,7 @@ const groupUtils = require("./../utils/groups");
 
 const schema = new mongoose.Schema({
   title: { type: String, required: true, minlength: 3, maxlength: 30 },
+  description: { type: String, required: true, minlength: 0, maxlength: 120 },
   tasks: [{ type: mongoose.Schema.ObjectId, ref: "task" }],
   files: [String],
 });

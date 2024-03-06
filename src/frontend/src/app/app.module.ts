@@ -30,6 +30,9 @@ import { LateralMenuComponent } from './lateral-menu/lateral-menu.component';
 import { FileDropComponent } from './file-drop/file-drop.component';
 import { FileDropFileComponent } from './file-drop-file/file-drop-file.component';
 import { DataFormatPipe } from './data-format.pipe';
+import { MediasDisplayComponent } from './medias/medias-display/medias-display.component';
+import { MediaDisplayComponent } from './medias/media-display/media-display.component';
+import { MediaDetailsComponent } from './medias/media-details/media-details.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,9 @@ import { DataFormatPipe } from './data-format.pipe';
     FileDropComponent,
     FileDropFileComponent,
     DataFormatPipe,
+    MediasDisplayComponent,
+    MediaDisplayComponent,
+    MediaDetailsComponent,
   ],
   imports: [
     BrowserModule,

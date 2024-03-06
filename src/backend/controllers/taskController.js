@@ -8,12 +8,18 @@ const checkType = sanitationUtils.checkType;
 
 exports.createTaskGroup = async function (req, res) {
   try {
-    if (!"title" in req.body || !checkType(req.body.title, "string", String)) {
+    if (
+      !"title" in req.body ||
+      !checkType(req.body.title, "string", String) ||
+      "!description" in req.body ||
+      !checkType(req.body.description, "string", String)
+    ) {
       return res.status(400).json("Bad Request");
     }
 
     const group = await groupModel.create({
       title: req.body.title,
+      description: req.body.description,
       tasks: [],
       files: [],
     });
@@ -28,9 +34,9 @@ exports.createTaskGroup = async function (req, res) {
           );
         })
       )
-    ).map((f) => f.path);
+    ).map((f) => sanitationUtils.formatFile(f.file));
 
-    group.files = files;
+    group.files = files.map((f) => f.url);
     await group.save();
 
     return res.status(201).json(sanitationUtils.formatGroup(group));
