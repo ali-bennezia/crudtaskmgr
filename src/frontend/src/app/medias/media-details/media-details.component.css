@@ -1,5 +1,30 @@
 .media-details {
-  position: sticky;
+  position: absolute;
   width: 100vw;
   height: 100vh;
+  background-color: rgba(0, 0, 0, 0.075);
+  top: 0px;
+  left: 0px;
+  backdrop-filter: blur(2px);
+}
+
+.media-details div {
+  background-color: white;
+
+  display: inline-block;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+
+  width: auto;
+}
+
+.media-details div img {
+  max-width: 60vw;
+  max-height: 60vh;
+
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
 }

@@ -1,1 +1,12 @@
-<div class="media-details"></div>
+<div
+  class="media-details"
+  (click)="onBackgroundClick($event)"
+  @enterLeave
+  *ngIf="mService.displaying"
+>
+  <div [ngSwitch]="media.file.type">
+    <ng-container *ngSwitchCase="'image'">
+      <img [src]="media.dataUrl" />
+    </ng-container>
+  </div>
+</div>

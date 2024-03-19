@@ -39,7 +39,7 @@ exports.createTaskGroup = async function (req, res) {
     group.files = files.map((f) => f.url);
     await group.save();
 
-    return res.status(201).json(sanitationUtils.formatGroup(group));
+    return res.status(201).json(await sanitationUtils.formatGroup(group));
   } catch (err) {
     console.error(err);
     return res.status(500).json("Internal Server Error");
@@ -52,7 +52,7 @@ exports.getTaskGroups = async function (req, res) {
       (
         await groupModel.find().exec()
       ).map(async function (g) {
-        return sanitationUtils.formatGroup(g);
+        return await sanitationUtils.formatGroup(g);
       })
     );
     return res.status(200).json(groups);
@@ -78,7 +78,7 @@ exports.updateTaskGroup = async function (req, res) {
     const group = await groupModel.findOne({ _id: req.body.id });
     group.title = req.body.title;
     await group.save();
-    return res.status(200).json(sanitationUtils.formatGroup(group));
+    return res.status(200).json(await sanitationUtils.formatGroup(group));
   } catch (err) {
     console.error(err);
     return res.status(500).json("Internal Server Error");

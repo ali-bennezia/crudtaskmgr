@@ -38,7 +38,11 @@ export class MediaDisplayComponent implements OnInit, OnDestroy {
   handleFile(name: string, buff: ArrayBuffer) {
     let fileType = getFileArrayBufferDisplayType(name, buff);
     this.displayType = fileType.displayType;
-    this.dataUrl = URL.createObjectURL(new Blob([buff]));
+    if (
+      this.displayType == DisplayFileType.IMAGE ||
+      this.displayType == DisplayFileType.VIDEO
+    )
+      this.dataUrl = URL.createObjectURL(new Blob([buff]));
     this.loading = false;
   }
 
@@ -73,5 +77,9 @@ export class MediaDisplayComponent implements OnInit, OnDestroy {
 
   onClick(e: Event) {
     this.selected = true;
+    this.mService.displayedMedia = {
+      file: this.media,
+      dataUrl: this.dataUrl,
+    };
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { MediaService } from './media.service';
 
 enum NavAccess {
   ALL,
@@ -25,7 +26,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   title = 'frontend';
 
-  constructor(public authService: AuthService, private router: Router) {}
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    public mediaService: MediaService
+  ) {}
 
   public navLinks: NavLink[] = [
     { label: 'Index', url: '/index', access: NavAccess.ALL },

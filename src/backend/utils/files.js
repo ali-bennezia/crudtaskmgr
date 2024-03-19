@@ -58,6 +58,8 @@ exports.uploadFileAsync = async function uploadFileAsync(
   const createdFileName = `${v1()}.${ext}`;
   const createdFilePath = path.join(UPLOADS_PATH, createdFileName);
 
+  console.log(fileType);
+
   try {
     const newFile = await fileModel.create({
       url: createdFilePath,
@@ -83,11 +85,10 @@ exports.uploadFileAsync = async function uploadFileAsync(
  * @returns {{displayType: DisplayFileType, mimeType: string} | null} The file's display type data. Returns null if error.
  */
 exports.getFileDisplayType = function getFileDisplayType(file) {
-  buffer = file.arrayBuffer;
-
   let displayType = DisplayFileType.OTHER;
   let type = null;
 
+  let buffer = file.buffer;
   try {
     type = fileTypeChecker.detectFile(buffer);
     if (type == undefined) {
@@ -103,11 +104,13 @@ exports.getFileDisplayType = function getFileDisplayType(file) {
       )
         displayType = DisplayFileType.ARCHIVE;
     }
-  } catch {
+  } catch (e) {
+    console.error(e);
     if (file.originalname.endsWith(".txt")) {
       displayType = DisplayFileType.TEXT;
     }
   }
+
   return {
     displayType: displayType,
     mimeType:

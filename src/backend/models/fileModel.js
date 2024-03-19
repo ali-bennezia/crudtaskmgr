@@ -5,7 +5,10 @@ const schema = new mongoose.Schema({
   url: { type: String, required: true, unique: true },
   name: { type: String, required: true },
   type: {
+    type: String,
     enum: ["image", "video", "archive", "text", "other"],
+    default: "other",
+    required: true,
   },
   group: { type: mongoose.Schema.ObjectId, ref: "group", required: true },
 });

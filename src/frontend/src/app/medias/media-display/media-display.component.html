@@ -9,5 +9,60 @@
     (click)="onClick($event)"
   >
     <img *ngSwitchCase="displayFileTypes.IMAGE" [src]="dataUrl" />
+    <div *ngSwitchCase="displayFileTypes.VIDEO" class="media-display-icon-cont">
+      <ng-icon
+        name="bootstrapFileEarmarkPlay"
+        style="
+          font-size: 34px;
+          position: relative;
+          left: 18px;
+          margin: 0 auto;
+          height: auto;
+        "
+      ></ng-icon>
+      <p>{{ media.name }}</p>
+    </div>
+    <div
+      *ngSwitchCase="displayFileTypes.ARCHIVE"
+      class="media-display-icon-cont"
+    >
+      <ng-icon
+        name="bootstrapFileEarmarkZip"
+        style="
+          font-size: 34px;
+          position: relative;
+          left: 18px;
+          margin: 0 auto;
+          height: auto;
+        "
+      ></ng-icon>
+      <p>{{ media.name }}</p>
+    </div>
+    <div *ngSwitchCase="displayFileTypes.TEXT" class="media-display-icon-cont">
+      <ng-icon
+        name="bootstrapFileEarmarkText"
+        style="
+          font-size: 34px;
+          position: relative;
+          left: 18px;
+          margin: 0 auto;
+          height: auto;
+        "
+      ></ng-icon>
+      <p>{{ media.name }}</p>
+    </div>
+    <div *ngSwitchDefault class="media-display-icon-cont">
+      <ng-icon
+        name="bootstrapFileEarmark"
+        style="
+          font-size: 34px;
+          position: relative;
+          left: 18px;
+          margin: 0 auto;
+          height: auto;
+        "
+      ></ng-icon>
+      <p>{{ media.name }}</p>
+    </div>
   </div>
 </ng-container>
