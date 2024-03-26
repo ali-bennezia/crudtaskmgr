@@ -5,8 +5,19 @@
   *ngIf="mService.displaying"
 >
   <div [ngSwitch]="media.file.type">
-    <ng-container *ngSwitchCase="'image'">
-      <img [src]="media.dataUrl" />
-    </ng-container>
+    <div>
+      <ng-container *ngSwitchCase="'image'">
+        <img [src]="media.dataUrl" />
+      </ng-container>
+      <ng-container *ngSwitchCase="'video'">
+        <video [src]="media.dataUrl"></video>
+      </ng-container>
+    </div>
+    <div class="details-cont">
+      <dl>
+        <dt>Title</dt>
+        <dl>Test</dl>
+      </dl>
+    </div>
   </div>
 </div>

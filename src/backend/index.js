@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const authMiddlewares = require("./middlewares/authMiddlewares.js");
+const miscMiddlewares = require("./middlewares/miscMiddlewares.js");
 
 const PORT = process.env.PORT ?? 5506;
 const DB_URL = process.env.DB_URL;
@@ -50,6 +51,12 @@ const UPLOADS_PATH = process.env.UPLOADS_PATH ?? "uploads";
 fileUtils.generateUploadDirectory();
 
 app.use("/files", authMiddlewares.checkToken, express.static(UPLOADS_PATH));
+app.use(
+  "/downloads",
+  authMiddlewares.checkToken,
+  miscMiddlewares.setDownloadHeaders,
+  express.static(UPLOADS_PATH)
+);
 
 // routes
 
