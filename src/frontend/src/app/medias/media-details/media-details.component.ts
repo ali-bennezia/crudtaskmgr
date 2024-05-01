@@ -71,6 +71,11 @@ export class MediaDetailsComponent implements OnInit, OnDestroy {
     return `${config.backendUrl}/files/${segments[segments.length - 1]}`;
   }
 
+  getMediaDownloadUrl() {
+    let segments = this.media!.file.url.split('/');
+    return `${config.backendUrl}/downloads/${segments[segments.length - 1]}`;
+  }
+
   onBackgroundClick(e: Event) {
     let el: HTMLElement = e.target as HTMLElement;
     if (el.className.includes('media-details')) {

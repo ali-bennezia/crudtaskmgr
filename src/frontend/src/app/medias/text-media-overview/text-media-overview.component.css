@@ -1,0 +1,14 @@
+.text-ow-main-cont {
+  background-color: rgb(255, 255, 255);
+  max-width: 400px;
+  padding: 16px;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.26) 0px 0px 4px;
+}
+
+.text-ow-cont {
+  background-color: rgb(243, 243, 243);
+  max-width: 400px;
+  border: rgb(221, 221, 221) solid 1px;
+  padding: 4px;
+}

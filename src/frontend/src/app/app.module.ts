@@ -34,6 +34,7 @@ import { MediasDisplayComponent } from './medias/medias-display/medias-display.c
 import { MediaDisplayComponent } from './medias/media-display/media-display.component';
 import { MediaDetailsComponent } from './medias/media-details/media-details.component';
 import { CookieService } from 'ngx-cookie-service';
+import { TextMediaOverviewComponent } from './medias/text-media-overview/text-media-overview.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { CookieService } from 'ngx-cookie-service';
     MediasDisplayComponent,
     MediaDisplayComponent,
     MediaDetailsComponent,
+    TextMediaOverviewComponent,
   ],
   imports: [
     BrowserModule,

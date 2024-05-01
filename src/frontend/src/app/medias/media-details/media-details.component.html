@@ -14,6 +14,11 @@
           <source [src]="getMediaFileUrl()" [type]="media.file.mimeType" />
         </video>
       </ng-container>
+      <ng-container *ngSwitchCase="'text'">
+        <app-text-media-overview
+          [url]="getMediaFileUrl()"
+        ></app-text-media-overview>
+      </ng-container>
     </div>
     <div class="details-cont">
       <h4>File details</h4>
@@ -25,9 +30,14 @@
         <dl>{{ media.file.name }}</dl>
         <dt>Type</dt>
         <dl>{{ media.file.type }}</dl>
+        <dt>Mime Type</dt>
+        <dl>{{ media.file.mimeType }}</dl>
         <dt>Size</dt>
         <dl>{{ media.file.weightBytes | dataFormat }}</dl>
       </dl>
+      <div>
+        <a class="btn download-btn" [href]="getMediaDownloadUrl()">Download</a>
+      </div>
     </div>
   </div>
 </div>
