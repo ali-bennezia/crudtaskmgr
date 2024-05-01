@@ -31,6 +31,8 @@ exports.formatFile = (file) => {
     url: file.url,
     name: file.name,
     type: file.type,
+    mimeType: file.mimeType,
     group: file.group,
+    weightBytes: file.weightBytes,
   };
 };

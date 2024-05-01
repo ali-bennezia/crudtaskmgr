@@ -21,6 +21,10 @@ export class MediaService {
   onMediaSelected$: Observable<MediaSelection> =
     this.onMediaSelectedSource.asObservable();
 
+  onDisplayingChangeSource: Subject<boolean> = new Subject();
+  onDisplayChange$: Observable<boolean> =
+    this.onDisplayingChangeSource.asObservable();
+
   selectMedia(media: MediaData, index: number) {
     this.displayedMedia = media;
     this.displayIndex_ = index;
@@ -36,14 +40,19 @@ export class MediaService {
   set displayedMedia(val: MediaData | null) {
     if (val) {
       this.displayedMedia_ = val;
-      this.displaying_ = true;
+      this.displaying = true;
     } else {
       this.displayedMedia_ = val;
-      this.displaying_ = false;
+      this.displaying = false;
     }
   }
   get displayedMedia() {
     return this.displayedMedia_;
+  }
+
+  private set displaying(newVal: boolean) {
+    this.displaying_ = newVal;
+    this.onDisplayingChangeSource.next(newVal);
   }
 
   get displaying() {

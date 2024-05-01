@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { MediaService } from './media.service';
 
+import videojs from 'video.js';
+
 enum NavAccess {
   ALL,
   AUTH_ONLY,

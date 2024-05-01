@@ -1,7 +1,19 @@
-import { Component, Input } from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { MediaData } from '../media-data';
-import { MediaService } from 'src/app/media.service';
 import { transition, trigger, style, animate } from '@angular/animations';
+
+import { MediaService } from 'src/app/media.service';
+import { AuthService } from 'src/app/auth.service';
+
+import config from './../../../backend.json';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-media-details',
@@ -38,15 +50,49 @@ import { transition, trigger, style, animate } from '@angular/animations';
     ]),
   ],
 })
-export class MediaDetailsComponent {
+export class MediaDetailsComponent implements OnInit, OnDestroy {
   @Input()
   media!: MediaData;
 
-  constructor(public mService: MediaService) {}
+  private onDisplayingChangeSubscription?: Subscription;
+
+  constructor(public mService: MediaService, public aService: AuthService) {}
+
+  closeMediaDetails() {
+    this.mService.displayedMedia = null;
+  }
+
+  onClosed() {}
+
+  onOpened() {}
+
+  getMediaFileUrl() {
+    let segments = this.media!.file.url.split('/');
+    return `${config.backendUrl}/files/${segments[segments.length - 1]}`;
+  }
 
   onBackgroundClick(e: Event) {
-    console.log(this.media);
+    let el: HTMLElement = e.target as HTMLElement;
+    if (el.className.includes('media-details')) {
+      this.closeMediaDetails();
+    }
+  }
 
-    this.mService.displayedMedia = null;
+  ngOnInit(): void {
+    this.onDisplayingChangeSubscription =
+      this.mService.onDisplayChange$.subscribe((v) => {
+        if (v) {
+          this.onOpened();
+        } else {
+          this.onClosed();
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    if (this.onDisplayingChangeSubscription) {
+      this.onDisplayingChangeSubscription.unsubscribe();
+      this.onDisplayingChangeSubscription = undefined;
+    }
   }
 }

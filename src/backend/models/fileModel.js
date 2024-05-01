@@ -10,7 +10,13 @@ const schema = new mongoose.Schema({
     default: "other",
     required: true,
   },
+  mimeType: {
+    type: String,
+    required: true,
+    default: "application/octet-stream",
+  },
   group: { type: mongoose.Schema.ObjectId, ref: "group", required: true },
+  weightBytes: { type: Number, required: true },
 });
 
 schema.pre(

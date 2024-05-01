@@ -16,6 +16,12 @@
   transform: translateX(-50%) translateY(-50%);
 
   width: auto;
+
+  pointer-events: none;
+}
+
+.media-details > div > * {
+  pointer-events: all;
 }
 
 .media-details > div > div {
@@ -42,5 +48,15 @@
 
   background-color: white;
   height: 100%;
-  width: 100px;
+  width: auto;
+}
+
+.details-cont > h4 {
+  display: inline-block;
+}
+
+#close-btn {
+  float: right;
+  border: none;
+  background: none;
 }

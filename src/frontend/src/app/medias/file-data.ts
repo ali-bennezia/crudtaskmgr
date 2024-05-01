@@ -3,5 +3,7 @@ export interface FileData {
   url: string;
   name: string;
   type: string;
+  mimeType: string;
   group: string;
+  weightBytes: number;
 }

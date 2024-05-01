@@ -32,7 +32,6 @@ export class PageSignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((data) => {
-      console.log(data);
       if (data.has('success') && data.get('success') == 'true') {
         this.successElement.nativeElement.innerText =
           'Account was succesfully registered.';

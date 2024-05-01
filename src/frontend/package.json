@@ -20,7 +20,11 @@
     "@angular/router": "^16.0.0",
     "@ng-icons/bootstrap-icons": "^26.3.0",
     "@ng-icons/core": "^26.3.0",
+    "@types/mime-types": "^2.1.4",
     "file-type-checker": "^1.0.8",
+    "mime-types": "^2.1.35",
+    "ngx-cookie-service": "^17.1.0",
+    "path-browserify": "^1.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -30,12 +34,14 @@
     "@angular/cli": "~16.0.3",
     "@angular/compiler-cli": "^16.0.0",
     "@types/jasmine": "~4.3.0",
+    "@types/xhook": "^1.5.3",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
-    "typescript": "~5.0.2"
+    "typescript": "~5.0.2",
+    "video.js": "^8.10.0"
   }
 }

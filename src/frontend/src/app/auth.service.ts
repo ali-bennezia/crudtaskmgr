@@ -14,6 +14,7 @@ import { EMPTY, Observable, of } from 'rxjs';
 import { tap, catchError, switchMap, filter } from 'rxjs/operators';
 import { LoginResult } from './login-result';
 import { RegisterResult } from './register-result';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,7 @@ export class AuthService {
   private authentified: boolean = false;
   private session: AuthSession | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cService: CookieService) {}
 
   fetchAuthState() {
     let storageVal: string | null = localStorage.getItem('authState');
@@ -31,9 +32,11 @@ export class AuthService {
     if (state && new Date() <= new Date(state!.session?.expires! as string)) {
       this.authentified = state!.authentified;
       this.session = state!.session;
+      this.cService.set('Authorization', `Bearer ${this.session?.token}`);
     } else {
       this.authentified = false;
       this.session = null;
+      this.cService.delete('Authorization');
     }
   }
 
@@ -112,12 +115,17 @@ export class AuthService {
                 data.body!.username,
                 data.body!.expiration
               );
+              this.cService.set(
+                'Authorization',
+                `Bearer ${this.session?.token}`
+              );
               this.saveAuthState();
             }
           },
           error: (err) => {
             this.authentified = false;
             this.session = null;
+            this.cService.delete('Authorization');
             this.saveAuthState();
           },
         }),
@@ -140,6 +148,7 @@ export class AuthService {
   public logout() {
     this.authentified = false;
     this.session = null;
+    this.cService.delete('Authorization');
     this.saveAuthState();
   }
 

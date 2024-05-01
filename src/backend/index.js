@@ -5,12 +5,14 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const app = express();
 const fileUtils = require("./utils/files.js");
+const cookieParser = require("cookie-parser");
 
 // config
 
 dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 const authMiddlewares = require("./middlewares/authMiddlewares.js");
 const miscMiddlewares = require("./middlewares/miscMiddlewares.js");

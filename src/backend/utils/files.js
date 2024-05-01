@@ -58,14 +58,14 @@ exports.uploadFileAsync = async function uploadFileAsync(
   const createdFileName = `${v1()}.${ext}`;
   const createdFilePath = path.join(UPLOADS_PATH, createdFileName);
 
-  console.log(fileType);
-
   try {
     const newFile = await fileModel.create({
       url: createdFilePath,
       name: file.originalname,
       type: fileType,
+      mimeType: file.mimetype,
       group: groupId,
+      weightBytes: file.size,
     });
 
     this.removeLocalFile(createdFilePath);

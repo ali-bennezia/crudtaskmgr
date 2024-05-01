@@ -33,6 +33,7 @@ import { DataFormatPipe } from './data-format.pipe';
 import { MediasDisplayComponent } from './medias/medias-display/medias-display.component';
 import { MediaDisplayComponent } from './medias/media-display/media-display.component';
 import { MediaDetailsComponent } from './medias/media-details/media-details.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,7 @@ import { MediaDetailsComponent } from './medias/media-details/media-details.comp
       bootstrapTrash,
     }),
   ],
-  providers: [interceptorProviders],
+  providers: [interceptorProviders, CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

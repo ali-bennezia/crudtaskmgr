@@ -10,13 +10,23 @@
         <img [src]="media.dataUrl" />
       </ng-container>
       <ng-container *ngSwitchCase="'video'">
-        <video [src]="media.dataUrl"></video>
+        <video class="video-js" controls>
+          <source [src]="getMediaFileUrl()" [type]="media.file.mimeType" />
+        </video>
       </ng-container>
     </div>
     <div class="details-cont">
+      <h4>File details</h4>
+      <button id="close-btn" (click)="closeMediaDetails()">
+        <i class="far fa-times-circle"></i>
+      </button>
       <dl>
-        <dt>Title</dt>
-        <dl>Test</dl>
+        <dt>Name</dt>
+        <dl>{{ media.file.name }}</dl>
+        <dt>Type</dt>
+        <dl>{{ media.file.type }}</dl>
+        <dt>Size</dt>
+        <dl>{{ media.file.weightBytes | dataFormat }}</dl>
       </dl>
     </div>
   </div>
