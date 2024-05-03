@@ -14,6 +14,7 @@ import {
   bootstrapFileEarmarkText,
   bootstrapFileEarmarkPlay,
   bootstrapTrash,
+  bootstrapPlusCircleDotted,
 } from '@ng-icons/bootstrap-icons';
 
 import { AppComponent } from './app.component';
@@ -35,6 +36,7 @@ import { MediaDisplayComponent } from './medias/media-display/media-display.comp
 import { MediaDetailsComponent } from './medias/media-details/media-details.component';
 import { CookieService } from 'ngx-cookie-service';
 import { TextMediaOverviewComponent } from './medias/text-media-overview/text-media-overview.component';
+import { CreateTaskGroupComponent } from './tasks/create-task-group/create-task-group.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { TextMediaOverviewComponent } from './medias/text-media-overview/text-me
     MediaDisplayComponent,
     MediaDetailsComponent,
     TextMediaOverviewComponent,
+    CreateTaskGroupComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +72,7 @@ import { TextMediaOverviewComponent } from './medias/text-media-overview/text-me
       bootstrapFileEarmarkText,
       bootstrapFileEarmarkPlay,
       bootstrapTrash,
+      bootstrapPlusCircleDotted,
     }),
   ],
   providers: [interceptorProviders, CookieService],

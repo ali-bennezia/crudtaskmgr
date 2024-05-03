@@ -1,0 +1,16 @@
+<div
+  class="task-group-cont create-task-group-cont"
+  (click)="onClick($event)"
+  [ngStyle]="{
+    opacity: disabled ? 0.3 : 0.8,
+    cursor: disabled ? 'default' : undefined
+  }"
+  title="Create Task Group"
+>
+  <h3>Create Task Group</h3>
+  <p>Create a new task group.</p>
+  <ng-icon
+    name="bootstrapPlusCircleDotted"
+    style="font-size: 34px; height: auto"
+  ></ng-icon>
+</div>

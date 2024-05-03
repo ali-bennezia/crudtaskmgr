@@ -170,3 +170,45 @@ ng-icon,
   border: rgb(146, 146, 146) solid 2px;
   color: black;
 }
+
+.div-cont {
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.26) 0px 0px 4px;
+  border-radius: 6px;
+}
+
+.task-group-cont {
+  background-color: rgb(250, 250, 250);
+  border: solid 1px rgb(238, 238, 238);
+  padding: 8px;
+  border-radius: 8px;
+  margin: 8px;
+  max-width: 360px;
+}
+
+.create-task-group-cont {
+  border: rgb(184, 214, 178) dotted 3px;
+  background-color: rgb(240, 255, 235);
+  color: rgb(0, 54, 0);
+}
+
+.create-task-group-cont:hover {
+  border: rgb(150, 190, 150) dotted 3px;
+  background-color: rgb(207, 241, 207);
+  cursor: pointer;
+}
+
+.create-task-group-btn {
+  border: rgb(184, 214, 178) dotted 2px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  border-radius: 6px;
+  background-color: rgb(240, 255, 235);
+  color: rgb(7, 82, 7);
+}
+
+.create-task-group-btn:hover {
+  border: rgb(150, 190, 150) dotted 2px;
+  background-color: rgb(207, 241, 207);
+  cursor: pointer;
+}

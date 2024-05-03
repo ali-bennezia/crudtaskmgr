@@ -4,13 +4,17 @@
     [taskGroup]="g.g"
     (deleteAction)="deleteTaskGroup(g)"
   ></app-task-group>
+  <app-create-task-group
+    (onInteract)="taskGroupCreation = true"
+    [disabled]="taskGroupCreation"
+  ></app-create-task-group>
 </div>
 <ng-template #elseBlock>
   <article>
     <h1>No Tasks Found</h1>
     <aside>
       <button
-        class="create-gp"
+        class="btn create-task-group-btn"
         (click)="taskGroupCreation = true"
         [disabled]="taskGroupCreation"
       >

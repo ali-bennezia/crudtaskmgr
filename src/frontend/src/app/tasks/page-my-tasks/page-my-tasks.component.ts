@@ -117,6 +117,8 @@ export class PageMyTasksComponent implements OnInit {
           console.error(e);
         },
       });
+    this.clearCreationForm();
+    this.taskGroupCreation = false;
   }
 
   deleteTaskGroup(g: TaskGroupData) {
